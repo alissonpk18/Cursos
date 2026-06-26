@@ -327,6 +327,11 @@
         p.pontuacoes[moduloId] = pontuacao;
       }
     });
+    // Revela o botão do próximo módulo que estava oculto até a conclusão
+    var pendentes = document.querySelectorAll("[data-proximo-modulo]");
+    for (var pi = 0; pi < pendentes.length; pi++) {
+      pendentes[pi].style.display = "";
+    }
   }
 
   function estaModuloConcluido(cursoId, moduloId) {
@@ -563,6 +568,19 @@
              area.appendChild(voltarLink);
            }
          }
+      }
+
+      // Oculta o botão "próximo módulo" até o módulo atual ser concluído
+      var modAtualId = "c" + cursoId.replace("curso", "") + "m" + modNum;
+      if (!estaModuloConcluido(cursoId, modAtualId)) {
+        var navMod = document.querySelector("nav.flex");
+        if (navMod) {
+          var linksProximos = navMod.querySelectorAll("a.botao:not(.botao-fantasma)");
+          for (var li = 0; li < linksProximos.length; li++) {
+            linksProximos[li].dataset.proximoModulo = "1";
+            linksProximos[li].style.display = "none";
+          }
+        }
       }
     } else {
       injetarCabecalho("index.html", "Painel");
