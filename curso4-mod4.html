@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 4 · Decisão e Ação — Curso 4 — Farol</title>
+  <meta name="description" content="Feche o ciclo completo: Caixa → Bot → Assistente com Dados → Decisão.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso4-mod4" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 4 · Módulo 4 de 4</span>
+      <h1>Decisão e Ação</h1>
+      <p class="suave">O ciclo completo: do caixa até uma decisão ancorada nos seus dados.
+        Essa decisão alimenta o caixa de amanhã.</p>
+    </header>
+
+    <!-- O ciclo visual -->
+    <section class="ciclo revela" id="ciclo">
+      <div class="vidro passo feito" data-passo="0"><div class="passo-icone">①</div><strong>Caixa</strong></div>
+      <div class="vidro passo feito" data-passo="1"><div class="passo-icone">②</div><strong>Bot</strong></div>
+      <div class="vidro passo feito" data-passo="2"><div class="passo-icone">③</div><strong>Assistente com Dados</strong></div>
+      <div class="vidro passo ativo" data-passo="3"><div class="passo-icone">④</div><strong>Decisão</strong></div>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Resumo do ciclo</h2>
+      <div id="resumo" class="vidro cartao" style="background:var(--cor-fundo-2)">
+        <p class="suave">Carregando dados dos módulos anteriores…</p>
+      </div>
+      <p class="suave" style="margin-top:1rem">↻ Essa decisão vira ação — e o resultado aparece
+        no <strong>caixa de amanhã</strong>, recomeçando o ciclo.</p>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between;align-items:center">
+        <p class="suave" style="margin:0">Entendeu o ciclo completo?</p>
+        <button class="botao" id="btn-concluir">Concluir ciclo ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso4-mod3.html">← Módulo 3</a>
+      <a class="botao" href="curso4.html">Voltar ao Curso 4</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 4 · Módulo 4 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso4", MOD = "c4m4";
+    var fb = document.getElementById("fb"), btn = document.getElementById("btn-concluir");
+
+    // Mostra resumo com dados dos módulos anteriores
+    var caixa = Farol.flag(CURSO, "caixa");
+    var bot = Farol.flag(CURSO, "bot");
+    var pergunta = Farol.flag(CURSO, "pergunta");
+    var resumo = document.getElementById("resumo");
+    resumo.innerHTML =
+      "<p><strong>Caixa de hoje:</strong> " + (caixa != null ? "R$ " + Number(caixa).toLocaleString("pt-BR", {minimumFractionDigits:2}) : "<em>não preenchido (módulo 1)</em>") + "</p>" +
+      "<p><strong>Canal:</strong> " + (bot || "<em>não escolhido (módulo 2)</em>") + "</p>" +
+      "<p><strong>Pergunta ao Assistente com Dados:</strong> " + (pergunta || "<em>não formulada (módulo 3)</em>") + "</p>" +
+      "<p style='margin-top:.6rem'><strong>Decisão sugerida:</strong> repriorizar a reposição pelos itens de maior giro (curva A) e revisar a margem antes de comprar itens da curva C.</p>";
+
+    if (Farol.estaModuloConcluido(CURSO, MOD)) { fb.textContent = "Curso 4 concluído! ✓"; fb.className = "feedback mostrar ok"; btn.disabled = true; }
+    btn.addEventListener("click", function () {
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Ciclo completo! Curso 4 concluído! ✓"; fb.className = "feedback mostrar ok"; btn.disabled = true;
+      document.querySelectorAll(".passo").forEach(function (el) { el.classList.add("feito"); el.classList.remove("ativo"); });
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

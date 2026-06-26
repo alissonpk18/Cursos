@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 1 · O que é uma Roteiro do Sistema — Curso 5 — Farol</title>
+  <meta name="description" content="Do problema ao documento estruturado: entenda o que é uma Roteiro do Sistema.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso5-mod1" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 5 · Módulo 1 de 4</span>
+      <h1>O que é uma Roteiro do Sistema</h1>
+      <p class="suave">Transforme o que você aprendeu numa <strong>Roteiro do Sistema</strong> — um documento
+        estruturado que descreve o software que resolve a sua dor.</p>
+    </header>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Roteiro do Sistema = Especificação</h2>
+      <p>Uma Roteiro do Sistema é o <strong>briefing técnico</strong> do seu projeto. Ela diz:</p>
+      <ol class="pilha" style="padding-left:1.2rem">
+        <li><strong>O problema</strong> — qual dor do negócio você quer resolver</li>
+        <li><strong>O objetivo</strong> — o que o software precisa fazer</li>
+        <li><strong>As entidades</strong> — que dados o sistema precisa armazenar</li>
+        <li><strong>As regras</strong> — como o sistema deve se comportar</li>
+      </ol>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Por que é importante?</h2>
+      <div class="grade-2">
+        <div class="vidro cartao" style="border-color: var(--cor-erro)">
+          <strong>❌ Sem Roteiro do Sistema</strong>
+          <p class="suave" style="font-size:0.9rem">"Quero um sistema de estoque." → Resultado imprevisível, retrabalho, frustração.</p>
+        </div>
+        <div class="vidro cartao" style="border-color: var(--cor-ok)">
+          <strong>✓ Com Roteiro do Sistema</strong>
+          <p class="suave" style="font-size:0.9rem">Documento claro com objetivo, entidades, regras e formato. Resultado previsível.</p>
+        </div>
+      </div>
+      <p class="suave">A Roteiro do Sistema é o que alimenta um funil de desenvolvimento — no nosso caso,
+        em C# + SQLite.</p>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between;align-items:center">
+        <p class="suave" style="margin:0">Entendeu o conceito?</p>
+        <button class="botao" id="btn-concluir">Marcar como lido ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso5.html">← Curso 5</a>
+      <a class="botao" href="curso5-mod2.html">Módulo 2: Montando sua Roteiro do Sistema →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 5 · Módulo 1 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso5", MOD = "c5m1";
+    var fb = document.getElementById("fb"), btn = document.getElementById("btn-concluir");
+    if (Farol.estaModuloConcluido(CURSO, MOD)) { fb.textContent = "Concluído."; fb.className = "feedback mostrar ok"; btn.disabled = true; }
+    btn.addEventListener("click", function () {
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Módulo concluído! ✓"; fb.className = "feedback mostrar ok"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

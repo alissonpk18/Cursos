@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso 3 · Análise de Vendas e Estoque — Farol</title>
+  <meta name="description" content="Descubra seus produtos mais lucrativos, classifique suas vendas e organize seu estoque visualmente em 3D. 4 módulos práticos.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso3" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+
+    <!-- HERO -->
+    <header class="revela">
+      <div class="curso-hero">
+        <span class="curso-hero-icone">📊</span>
+        <div class="curso-hero-info pilha">
+          <span class="selo" id="curso-ordem">Curso 3 de 5</span>
+          <h1>Análise de Vendas e Estoque</h1>
+          <p class="suave">A regra de vendas diz onde está seu dinheiro: poucos itens respondem por
+            quase todo o seu faturamento, enquanto a maioria dos produtos traz pouco retorno. Entender essa
+            divisão muda o seu estoque, suas compras e seus lucros.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- METADADOS -->
+    <div class="meta-pilulas revela">
+      <span class="pilula">📦 4 módulos</span>
+      <span class="pilula">⏱️ ~30 minutos no total</span>
+      <span class="pilula">📈 Nível iniciante a intermediário</span>
+      <span class="pilula">💸 Ferramenta gratuita</span>
+      <span class="pilula">🎓 Conta para o certificado</span>
+    </div>
+
+    <!-- O QUE VOCÊ VAI CONSTRUIR -->
+    <section class="vidro cartao objetivo-banner revela">
+      <span class="objetivo-icone">📊</span>
+      <div class="objetivo-texto pilha">
+        <h2 class="mt-0" style="font-size:1.25rem">O que você vai ter no final</h2>
+        <p class="suave" style="margin:0">Uma <strong>organização clara</strong> dos seus produtos ou
+          serviços. Você saberá exatamente quais são seus campeões de vendas, quais são regulares
+          e quais estão parados no estoque travando o seu dinheiro. Você sai sabendo onde focar.</p>
+      </div>
+    </section>
+
+    <!-- O QUE VOCÊ VAI APRENDER -->
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">O que você vai aprender</h2>
+      <ul class="lista-check">
+        <li>Como funciona a proporção de vendas 80/20 no seu negócio, sem fórmulas difíceis.</li>
+        <li>Como classificar seus produtos entre mais e menos importantes na prática.</li>
+        <li>Um <strong>jogo interativo em 3D</strong> para organizar seu estoque de forma visual e intuitiva.</li>
+        <li>Como usar essa classificação para ajustar preços e não errar nas compras.</li>
+      </ul>
+    </section>
+
+    <!-- PARA QUEM É -->
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Para quem é este curso</h2>
+      <p class="suave" style="margin:0">Para donos e gestores que querem <strong>parar de tratar todos
+        os produtos igual</strong>. Se você tem um catálogo com muitos itens e sente que alguns dão lucro
+        e outros só ocupam prateleira, este curso é para você. <strong>Nenhuma experiência com análise de
+        dados é necessária.</strong></p>
+    </section>
+
+    <!-- PROGRESSO -->
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between">
+        <div>
+          <h2 class="mt-0" style="font-size:1.2rem">Seu progresso no curso</h2>
+          <p class="suave" id="resumo">Carregando…</p>
+        </div>
+        <a class="botao" id="btn-continuar" href="#">Começar</a>
+      </div>
+      <div class="progresso-grande"><i id="barra" style="inline-size:0%"></i></div>
+    </section>
+
+    <!-- MAPA DE MÓDULOS -->
+    <section class="pilha">
+      <h2>Os 4 módulos</h2>
+      <p class="suave" style="margin-top:-0.5rem">Faça na ordem — cada módulo prepara o próximo. Seu
+        progresso fica salvo automaticamente no seu navegador.</p>
+      <div class="modulos-grid" id="mapa"></div>
+    </section>
+
+    <!-- DÚVIDAS FREQUENTES -->
+    <section class="pilha revela">
+      <h2>Dúvidas comuns antes de começar</h2>
+
+      <details class="faq">
+        <summary>Preciso ter feito os cursos anteriores?</summary>
+        <div class="faq-corpo">
+          <p>Recomendamos, mas não é obrigatório. Os Cursos 1 e 2 criam a base de conhecimento
+            e o prompt que alimentam a análise. Se já tem IA configurada, pode vir direto.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Como essa classificação funciona?</summary>
+        <div class="faq-corpo">
+          <p>Ela separa os produtos em 3 categorias: os de alta saída e faturamento (Grupo A), os
+            intermediários (Grupo B) e os de baixa saída (Grupo C). Isso ajuda você a saber qual item
+            não pode faltar e qual não deve ser comprado em excesso.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Preciso de planilha ou software especial?</summary>
+        <div class="faq-corpo">
+          <p>Não. Os exercícios acontecem direto no navegador. Mas se quiser aplicar no seu
+            negócio depois, uma planilha simples já basta.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Quanto tempo leva para concluir?</summary>
+        <div class="faq-corpo">
+          <p>Cerca de 30 minutos, somando os 4 módulos. Pode parar e voltar quando quiser.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="revela" id="cert-curso"></section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="../Engenharia de Prompt/curso2.html">← Curso 2: Como Falar com a IA</a>
+      <a class="botao" href="../Integracao/curso4.html">Curso 4: Rotina Diária Eficiente com IA →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 3 — Análise de Vendas e Estoque</div></footer>
+
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO_ID = "curso3";
+    var curso = Farol.CURSOS.filter(function (c) { return c.id === CURSO_ID; })[0];
+    var cursoIdx = Farol.CURSOS.indexOf(curso);
+    var prog = Farol.progressoCurso(CURSO_ID);
+    var proximo = Farol.proximoModulo(CURSO_ID);
+
+    document.getElementById("curso-ordem").textContent = "Curso " + (cursoIdx + 1) + " de " + Farol.CURSOS.length;
+
+    document.getElementById("barra").style.inlineSize = prog.percentual + "%";
+    document.getElementById("resumo").textContent =
+      prog.concluidos === prog.total
+        ? "Parabéns! Você concluiu todos os módulos deste curso. ✓"
+        : prog.concluidos + " de " + prog.total + " módulos concluídos.";
+
+    var btn = document.getElementById("btn-continuar");
+    if (proximo) {
+      btn.href = proximo.arquivo;
+      btn.textContent = prog.concluidos === 0 ? "Começar pelo módulo 1" : "Continuar no módulo " + proximo.num;
+    } else {
+      btn.href = "curso3-mod4.html";
+      btn.textContent = "Rever os módulos";
+    }
+
+    var mapa = document.getElementById("mapa");
+    curso.modulos.forEach(function (mod) {
+      var concluido = Farol.estaModuloConcluido(CURSO_ID, mod.id);
+      var ehProximo = proximo && proximo.id === mod.id;
+      var a = document.createElement("a");
+      a.className = "no vidro" + (ehProximo ? " atual" : "");
+      a.href = mod.arquivo;
+      a.innerHTML =
+        '<div class="flex" style="justify-content:space-between">' +
+          '<span class="no-num">' + (concluido ? "✓" : mod.num) + '</span>' +
+          (concluido ? '<span class="selo ok">Concluído</span>'
+            : (ehProximo ? '<span class="selo">Continue aqui</span>' : '<span class="selo pendente">Pendente</span>')) +
+        '</div>' +
+        '<span class="no-titulo">' + mod.titulo + '</span>' +
+        '<span class="no-sub">' + mod.subtitulo + '</span>' +
+        '<span class="no-criterio">Conclui ao: ' + mod.criterio + '</span>';
+      mapa.appendChild(a);
+    });
+
+    Farol.Certificado.montar({ escopo: "curso", cursoId: CURSO_ID, container: document.getElementById("cert-curso") });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2 · Input no Bot — Curso 4 — Farol</title>
+  <meta name="description" content="Escolha o canal de IA para conversar: desktop ou mobile.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso4-mod2" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 4 · Módulo 2 de 4</span>
+      <h1>Input no Bot</h1>
+      <p class="suave">Onde você vai conversar com a IA hoje? A escolha do canal importa.</p>
+    </header>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Escolha o canal</h2>
+      <p class="suave">Cada canal tem vantagens diferentes:</p>
+      <label class="opcao"><input type="radio" name="bot" value="Antigravity (Desktop)">
+        <span><strong>Antigravity</strong> — no computador, para análises mais densas e edição de documentos.</span></label>
+      <label class="opcao"><input type="radio" name="bot" value="Claude (Mobile)">
+        <span><strong>Claude</strong> — no celular, para consultas rápidas no balcão ou em trânsito.</span></label>
+      <label class="opcao"><input type="radio" name="bot" value="ChatGPT">
+        <span><strong>ChatGPT</strong> — versátil, disponível em desktop e mobile.</span></label>
+      <label class="opcao"><input type="radio" name="bot" value="NotebookLM">
+        <span><strong>NotebookLM</strong> — direto no seu Assistente com Dados, para respostas ancoradas nos documentos.</span></label>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between;align-items:center">
+        <p class="suave" style="margin:0">Escolheu seu canal?</p>
+        <button class="botao" id="btn-concluir">Concluir ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso4-mod1.html">← Módulo 1</a>
+      <a class="botao" href="curso4-mod3.html">Módulo 3: Consulta no Assistente com Dados →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 4 · Módulo 2 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso4", MOD = "c4m2";
+    var fb = document.getElementById("fb"), btn = document.getElementById("btn-concluir");
+    if (Farol.estaModuloConcluido(CURSO, MOD)) { fb.textContent = "Concluído."; fb.className = "feedback mostrar ok"; btn.disabled = true; }
+    btn.addEventListener("click", function () {
+      var bot = document.querySelector('input[name="bot"]:checked');
+      if (!bot) { fb.textContent = "Escolha um canal primeiro."; fb.className = "feedback mostrar erro"; return; }
+      Farol.definirFlag(CURSO, "bot", bot.value);
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Canal: " + bot.value + ". Módulo concluído! ✓"; fb.className = "feedback mostrar ok"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

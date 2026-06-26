@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3 · Revisão e Refinamento — Curso 5 — Farol</title>
+  <meta name="description" content="Checklist de qualidade para validar sua Roteiro do Sistema antes de enviar ao desenvolvimento.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso5-mod3" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 5 · Módulo 3 de 4</span>
+      <h1>Revisão e Refinamento</h1>
+      <p class="suave">Antes de enviar sua Roteiro do Sistema ao desenvolvimento, valide cada item deste checklist de qualidade.</p>
+    </header>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Checklist de revisão</h2>
+      <ul class="checklist" id="checklist">
+        <li><input type="checkbox" id="r1"><span>O nome do projeto é claro e descritivo</span></li>
+        <li><input type="checkbox" id="r2"><span>O objetivo descreve a DOR que o software resolve</span></li>
+        <li><input type="checkbox" id="r3"><span>As entidades cobrem todos os dados necessários</span></li>
+        <li><input type="checkbox" id="r4"><span>As regras de negócio estão explícitas (não ambíguas)</span></li>
+        <li><input type="checkbox" id="r5"><span>A Roteiro do Sistema poderia ser entendida por alguém que não conhece seu negócio</span></li>
+        <li><input type="checkbox" id="r6"><span>Releu a Roteiro do Sistema em voz alta para encontrar inconsistências</span></li>
+      </ul>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between;align-items:center">
+        <p class="suave" style="margin:0">Completou a revisão?</p>
+        <button class="botao" id="btn-concluir">Concluir ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso5-mod2.html">← Módulo 2</a>
+      <a class="botao" href="curso5-mod4.html">Módulo 4: Certificado →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 5 · Módulo 3 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso5", MOD = "c5m3";
+    var fb = document.getElementById("fb"), btn = document.getElementById("btn-concluir");
+    var checks = document.querySelectorAll("#checklist input[type='checkbox']");
+    checks.forEach(function (ck) {
+      var saved = Farol.flag(CURSO, "rev_" + ck.id);
+      if (saved) ck.checked = true;
+      ck.addEventListener("change", function () { Farol.definirFlag(CURSO, "rev_" + ck.id, ck.checked); });
+    });
+    if (Farol.estaModuloConcluido(CURSO, MOD)) { fb.textContent = "Concluído."; fb.className = "feedback mostrar ok"; btn.disabled = true; }
+    btn.addEventListener("click", function () {
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Revisão concluída! ✓"; fb.className = "feedback mostrar ok"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2 · Temperatura e Controle — Curso 2 — Farol</title>
+  <meta name="description" content="Entenda o que é temperatura na IA e como ajustá-la para decisões de negócio.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso2-mod2" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 2 · Módulo 2 de 4</span>
+      <h1>Temperatura e Controle</h1>
+      <p class="suave"><strong>Temperatura</strong> é o quanto a IA "improvisa". Para decisões de
+        negócio, queremos baixa: respostas consistentes e verificáveis.</p>
+    </header>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">O que é Temperatura?</h2>
+      <p>Em termos técnicos, a temperatura controla a <em>aleatoriedade</em> da saída da IA.
+        Na prática:</p>
+      <div class="grade-2">
+        <div class="vidro cartao" style="border-color: var(--cor-ok)">
+          <strong>🧊 Temperatura Baixa (0 – 0.3)</strong>
+          <p class="suave" style="font-size:0.9rem">Respostas previsíveis, consistentes, factuais. Ideal para: análises financeiras, relatórios, decisões.</p>
+        </div>
+        <div class="vidro cartao" style="border-color: var(--cor-aviso)">
+          <strong>🔥 Temperatura Alta (0.7 – 1.0)</strong>
+          <p class="suave" style="font-size:0.9rem">Respostas criativas, variadas, surpreendentes. Ideal para: brainstorming, textos criativos, marketing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Quando usar cada nível</h2>
+      <div class="pilha">
+        <p><strong>Para gestão de negócio</strong> (o foco deste curso): mantenha a
+          temperatura <strong>baixa</strong>. Você quer que a mesma pergunta feita hoje e amanhã
+          dê a mesma resposta — se os dados não mudaram.</p>
+        <p><strong>Para marketing e criação</strong>: pode subir um pouco. Se está escrevendo
+          um post para redes sociais, uma temperatura mais alta gera opções mais variadas.</p>
+        <p class="suave">Regra de ouro: se a resposta errada pode custar dinheiro ao seu
+          negócio, use temperatura baixa.</p>
+      </div>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Como controlar na prática</h2>
+      <p>Nem toda ferramenta expõe o slider de temperatura. Mas você pode controlá-la
+        <strong>pelo prompt</strong>:</p>
+      <ul class="pilha" style="padding-left:1.2rem">
+        <li><code>"Seja objetivo e preciso."</code> → reduz criatividade</li>
+        <li><code>"Não expanda além do que está nos dados."</code> → ancora no Assistente com Dados</li>
+        <li><code>"Gere 3 opções diferentes."</code> → explicitamente pede variação</li>
+      </ul>
+    </section>
+
+    <!-- Botão de conclusão -->
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between; align-items:center">
+        <p class="suave" style="margin:0">Entendeu temperatura?</p>
+        <button class="botao" id="btn-concluir">Marcar como lido ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso2-mod1.html">← Módulo 1</a>
+      <a class="botao" href="curso2-mod3.html">Módulo 3: Prática de Prompts →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 2 · Módulo 2 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso2", MOD = "c2m2";
+    var fb = document.getElementById("fb");
+    var btn = document.getElementById("btn-concluir");
+    if (Farol.estaModuloConcluido(CURSO, MOD)) {
+      fb.textContent = "Módulo concluído. Você pode reler quando quiser.";
+      fb.className = "feedback mostrar ok";
+      btn.textContent = "Concluído ✓"; btn.disabled = true;
+    }
+    btn.addEventListener("click", function () {
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Módulo concluído! ✓"; fb.className = "feedback mostrar ok";
+      btn.textContent = "Concluído ✓"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

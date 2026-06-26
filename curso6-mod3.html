@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3 · O Projeto Prático — Curso 6 — Farol</title>
+  <meta name="description" content="Copie o prompt estruturado e envie para a IA para gerar seu script de limpeza do Windows 11 de forma automática e segura.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+  <style>
+    .prompt-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px dashed var(--borda);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-block: 1rem;
+      font-family: monospace, Courier, monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      position: relative;
+    }
+    .btn-copiar {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.65rem;
+    }
+  </style>
+</head>
+<body data-pagina="curso6-mod3" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 6 · Módulo 3 de 6</span>
+      <h1>O Projeto Prático (Criando o Pedido)</h1>
+      <p class="suave">Neste módulo, você aplicará as regras do Módulo 2 para pedir um programa de limpeza de lixo digital (arquivos temporários).</p>
+      <div class="meta-pilulas">
+        <span class="pilula">⏱️ 8 min de prática</span>
+        <span class="pilula">📋 Cópia e Envio do Prompt</span>
+      </div>
+    </header>
+
+    <!-- O PEDIDO -->
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">O Texto do Pedido</h2>
+      <p>Abaixo está o texto exato estruturado com as 4 regras de segurança para você enviar à IA (como Gemini ou Antigravity). Copie e cole na conversa.</p>
+
+      <div class="prompt-box" id="texto-prompt">Atue como um especialista em Windows 11. Escreva um script em Ferramenta de Comandos do Windows para limpar o lixo digital do computador. Não me explique o código, apenas entregue o script pronto.
+Siga estas regras obrigatórias:
+1. O script deve verificar se foi aberto como Administrador. Se não foi, deve exibir um aviso vermelho e fechar sozinho.
+2. O script deve esvaziar as quatro pastas principais de arquivos temporários do Windows.
+3. O script deve ter regras para 'ignorar em silêncio' qualquer arquivo que o Windows estiver usando no momento, para não causar travamentos na tela negra.
+4. O script deve pausar as atualizações do Windows antes de limpar, e religá-las no final.
+5. Mostre mensagens na tela em português dizendo o que está acontecendo em cada etapa.<button class="botao btn-copiar" id="btn-copiar">Copiar Texto</button>
+      </div>
+
+      <p class="suave">Ao clicar no botão acima, o prompt será copiado para sua área de transferência. Abra a IA em uma nova aba e envie a mensagem.</p>
+    </section>
+
+    <!-- O QUE A IA DEVE RESPONDER -->
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">O que esperar da IA?</h2>
+      <p>A Inteligência Artificial deve responder com um bloco de código (com fundo cinza escuro ou preto) contendo comandos do Ferramenta de Comandos do Windows, que começam com algo parecido com:</p>
+      <pre style="background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: monospace;"><code># Testando permissões de administrador
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+if (-not $isAdmin) {
+    Write-Host "ERRO: Rode como Administrador!" -ForegroundColor Red
+    ...
+}</code></pre>
+      <p class="suave">Não se preocupe em entender a sintaxe. O importante é que a IA obedeceu às regras e colocou a trava de segurança logo no início.</p>
+    </section>
+
+    <!-- CONCLUSÃO -->
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between; align-items:center">
+        <p class="suave" style="margin:0">Copiou e enviou o prompt para a IA? Marque como concluído.</p>
+        <button class="botao" id="btn-concluir">Marcar como Copiado ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso6-mod2.html">← Módulo 2</a>
+      <a class="botao" href="curso6-mod4.html">Módulo 4: Criando o Programa →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 6 · Módulo 3 de 6</div></footer>
+
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso6", MOD = "c6m3";
+    var fb = document.getElementById("fb");
+    var btn = document.getElementById("btn-concluir");
+    var btnCopiar = document.getElementById("btn-copiar");
+
+    // Lógica do botão de copiar
+    btnCopiar.addEventListener("click", function () {
+      var texto = document.getElementById("texto-prompt").innerText.replace("Copiar Texto", "").trim();
+      navigator.clipboard.writeText(texto).then(function () {
+        btnCopiar.textContent = "Copiado!";
+        setTimeout(function () { btnCopiar.textContent = "Copiar Texto"; }, 2000);
+      }).catch(function () {
+        alert("Não foi possível copiar automaticamente. Selecione o texto e copie manualmente.");
+      });
+    });
+
+    if (Farol.estaModuloConcluido(CURSO, MOD)) {
+      fb.textContent = "Módulo concluído. Você pode reler quando quiser.";
+      fb.className = "feedback mostrar ok";
+      btn.textContent = "Concluído ✓"; btn.disabled = true;
+    }
+    btn.addEventListener("click", function () {
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Módulo concluído! ✓ Avance para aprender a transformar essa resposta em um programa.";
+      fb.className = "feedback mostrar ok";
+      btn.textContent = "Concluído ✓"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

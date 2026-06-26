@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 4 · Análise de Resultados — Curso 3 — Farol</title>
+  <meta name="description" content="Interpretando os dados da curva ABC. Quiz final do Curso 3.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso3-mod4" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 3 · Módulo 4 de 4</span>
+      <h1>Análise de Resultados</h1>
+      <p class="suave">Agora que você sabe classificar, vamos interpretar. Responda o quiz para concluir o curso.</p>
+    </header>
+    <section class="pilha revela">
+      <h2>Quiz — acerte 70% para concluir</h2>
+      <form id="quiz" class="pilha"></form>
+      <div class="flex">
+        <button class="botao" id="btn-corrigir" form="quiz" type="submit">Corrigir</button>
+        <button class="botao botao-fantasma esconder" id="btn-refazer" type="button">Refazer</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso3-mod3.html">← Módulo 3</a>
+      <a class="botao" href="curso3.html">Voltar ao Curso 3</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 3 · Módulo 4 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso3", MOD = "c3m4";
+    var PERGUNTAS = [
+      { pergunta: "Na Análise de Lucratividade, os itens da classe A representam:", opcoes: ["~80% do faturamento com ~20% dos itens", "~5% do faturamento", "Todos os itens igualmente", "Itens sem venda"], correta: 0 },
+      { pergunta: "Um item Classe C com estoque alto significa:", opcoes: ["Investimento bem feito", "Capital travado em item de baixo retorno", "Prioridade máxima de reposição", "Lucro garantido"], correta: 1 },
+      { pergunta: "Para decidir o que repor primeiro, você deve priorizar:", opcoes: ["Itens mais baratos", "Itens da Classe A com estoque baixo", "Itens da Classe C", "Itens aleatórios"], correta: 1 },
+      { pergunta: "O princípio de Pareto (80/20) no negócio diz que:", opcoes: ["Todos os produtos vendem igual", "Poucos itens geram a maior parte do resultado", "É preciso ter muitos produtos", "Classe C é a mais importante"], correta: 1 }
+    ];
+    var form = document.getElementById("quiz"), fb = document.getElementById("fb");
+    var btnC = document.getElementById("btn-corrigir"), btnR = document.getElementById("btn-refazer");
+
+    function renderizar() {
+      form.innerHTML = "";
+      PERGUNTAS.forEach(function (q, i) {
+        var bl = document.createElement("fieldset"); bl.className = "vidro quiz-pergunta"; bl.style.border = "1px solid var(--cor-borda)";
+        var h = '<h3>' + (i+1) + ". " + q.pergunta + '</h3>';
+        q.opcoes.forEach(function (o, j) { h += '<label class="opcao"><input type="radio" name="q'+i+'" value="'+j+'"><span>'+o+'</span></label>'; });
+        bl.innerHTML = h; form.appendChild(bl);
+      });
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); var ac = 0;
+      PERGUNTAS.forEach(function (q, i) {
+        var m = form.querySelector('input[name="q'+i+'"]:checked');
+        var bl = form.querySelectorAll("fieldset")[i];
+        bl.querySelectorAll(".opcao").forEach(function (o) { o.classList.remove("correta","incorreta"); });
+        bl.querySelectorAll(".opcao")[q.correta].classList.add("correta");
+        if (m) { var v = Number(m.value); if (v === q.correta) ac++; else bl.querySelectorAll(".opcao")[v].classList.add("incorreta"); }
+      });
+      var nota = Math.round((ac / PERGUNTAS.length) * 1000) / 10;
+      if (nota >= 70) { Farol.marcarModuloConcluido(CURSO, MOD, nota); mostrar("ok", ac + "/" + PERGUNTAS.length + " — nota " + nota + ". Curso 3 concluído! ✓"); }
+      else { mostrar("erro", "Nota " + nota + ". Precisa de 70."); }
+      btnR.classList.remove("esconder"); btnC.disabled = true;
+    });
+    btnR.addEventListener("click", function () { renderizar(); fb.className = "feedback"; btnC.disabled = false; btnR.classList.add("esconder"); });
+    function mostrar(t, m) { fb.textContent = m; fb.className = "feedback mostrar " + t; }
+    renderizar();
+    var na = Farol.pontuacao(CURSO, MOD);
+    if (na !== null && na >= 70) mostrar("ok", "Já concluído (nota " + na + ").");
+    Farol.initReveal();
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2 · Classificação Prática — Curso 3 — Farol</title>
+  <meta name="description" content="Classifique produtos reais em A, B e C.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso3-mod2" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 3 · Módulo 2 de 4</span>
+      <h1>Classificação Prática</h1>
+      <p class="suave">Agora vamos classificar produtos simulados. Arraste cada um para a classe correta (A, B ou C).</p>
+    </header>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Exercício: classifique os produtos</h2>
+      <p class="suave">Considere o faturamento de cada produto e classifique:</p>
+      <div id="exercicio" class="pilha"></div>
+      <div class="flex" style="margin-top:1rem">
+        <button class="botao" id="btn-verificar">Verificar classificação</button>
+      </div>
+      <p class="feedback" id="fb-ex" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between;align-items:center">
+        <p class="suave" style="margin:0">Completou a classificação?</p>
+        <button class="botao" id="btn-concluir">Concluir ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso3-mod1.html">← Módulo 1</a>
+      <a class="botao" href="curso3-mod3.html">Módulo 3: Desafio 3D →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 3 · Módulo 2 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso3", MOD = "c3m2";
+    var PRODUTOS = [
+      { nome: "Notebook Pro", faturamento: "R$ 42.000", classe: "A" },
+      { nome: "Cadeira Gamer", faturamento: "R$ 18.000", classe: "A" },
+      { nome: "Teclado Mecânico", faturamento: "R$ 9.500", classe: "B" },
+      { nome: "Mouse Gamer", faturamento: "R$ 4.200", classe: "B" },
+      { nome: "Mousepad", faturamento: "R$ 1.200", classe: "C" },
+      { nome: "Caneta", faturamento: "R$ 80", classe: "C" }
+    ];
+    var container = document.getElementById("exercicio");
+    PRODUTOS.forEach(function (p, i) {
+      var d = document.createElement("div");
+      d.className = "flex vidro cartao";
+      d.style.cssText = "justify-content:space-between;align-items:center;padding:0.7rem 1rem";
+      d.innerHTML = '<span><strong>' + p.nome + '</strong> — ' + p.faturamento + '</span>' +
+        '<select class="entrada" id="sel' + i + '" style="max-width:5rem">' +
+        '<option value="">?</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select>';
+      container.appendChild(d);
+    });
+
+    var fbEx = document.getElementById("fb-ex");
+    document.getElementById("btn-verificar").addEventListener("click", function () {
+      var acertos = 0;
+      PRODUTOS.forEach(function (p, i) {
+        var sel = document.getElementById("sel" + i);
+        if (sel.value === p.classe) { acertos++; sel.style.borderColor = "var(--cor-ok)"; }
+        else { sel.style.borderColor = "var(--cor-erro)"; }
+      });
+      if (acertos === PRODUTOS.length) {
+        fbEx.textContent = "Perfeito! Todos classificados corretamente. ✓";
+        fbEx.className = "feedback mostrar ok";
+      } else {
+        fbEx.textContent = acertos + " de " + PRODUTOS.length + " corretos. As erradas estão em vermelho.";
+        fbEx.className = "feedback mostrar erro";
+      }
+    });
+
+    var fb = document.getElementById("fb"), btn = document.getElementById("btn-concluir");
+    if (Farol.estaModuloConcluido(CURSO, MOD)) { fb.textContent = "Concluído."; fb.className = "feedback mostrar ok"; btn.disabled = true; }
+    btn.addEventListener("click", function () {
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Módulo concluído! ✓"; fb.className = "feedback mostrar ok"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 4 · Certificado — Curso 5 — Farol</title>
+  <meta name="description" content="Emita seu certificado de conclusão do Curso 5 (Especificação) da plataforma Farol.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso5-mod4" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 5 · Módulo 4 de 4</span>
+      <h1>Certificado do curso</h1>
+      <p class="suave">Parabéns por concluir o Curso 5! Emita seu certificado do curso de Especificação,
+        gerado 100% no seu navegador com selo e o seu nome.</p>
+    </header>
+
+    <section class="revela" id="cert-curso"></section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso5-mod3.html">← Módulo 3</a>
+      <a class="botao" href="../Automacao Windows/curso6.html">Ir para o Curso 6: Automação →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 5 · Módulo 4 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    Farol.Certificado.montar({ escopo: "curso", cursoId: "curso5", container: document.getElementById("cert-curso") });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

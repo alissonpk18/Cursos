@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 1 · Teoria da Análise de Lucratividade — Curso 3 — Farol</title>
+  <meta name="description" content="O princípio de Pareto aplicado ao negócio: entenda a Análise de Lucratividade.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso3-mod1" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 3 · Módulo 1 de 4</span>
+      <h1>Teoria da Análise de Lucratividade</h1>
+      <p class="suave">A <strong>Análise de Lucratividade</strong> diz onde está seu dinheiro: poucos itens (A)
+        respondem pela maior parte do faturamento; muitos itens (C) somam pouco.</p>
+    </header>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">O princípio de Pareto</h2>
+      <p>Vilfredo Pareto observou que <strong>80% dos efeitos vêm de 20% das causas</strong>.
+        No seu negócio, isso significa que poucos produtos geram a maior parte do faturamento.</p>
+      <div class="grade-2">
+        <div class="vidro cartao" style="border-left: 3px solid var(--cor-ok)">
+          <strong>Classe A (≈20% dos itens)</strong>
+          <p class="suave" style="font-size:0.9rem">Representam ~80% do faturamento. São seus campeões de vendas. Merecem atenção máxima em estoque e reposição.</p>
+        </div>
+        <div class="vidro cartao" style="border-left: 3px solid var(--cor-aviso)">
+          <strong>Classe B (≈30% dos itens)</strong>
+          <p class="suave" style="font-size:0.9rem">Representam ~15% do faturamento. Estáveis, mas sem o mesmo impacto. Merecem acompanhamento regular.</p>
+        </div>
+        <div class="vidro cartao" style="border-left: 3px solid var(--cor-erro)">
+          <strong>Classe C (≈50% dos itens)</strong>
+          <p class="suave" style="font-size:0.9rem">Representam ~5% do faturamento. Muitos itens que somam pouco. Candidatos a corte ou redução de estoque.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Por que isso importa?</h2>
+      <p>Sem classificação ABC, você trata todos os produtos igual. Com ela, você sabe
+        <strong>onde investir</strong>, <strong>o que repor primeiro</strong> e <strong>o que
+        está travando capital</strong> no estoque sem dar retorno.</p>
+      <p class="suave">Treinar esse olhar é o primeiro passo para precificar e priorizar com IA.</p>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between;align-items:center">
+        <p class="suave" style="margin:0">Entendeu o conceito?</p>
+        <button class="botao" id="btn-concluir">Marcar como lido ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso3.html">← Curso 3</a>
+      <a class="botao" href="curso3-mod2.html">Módulo 2: Classificação Prática →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 3 · Módulo 1 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso3", MOD = "c3m1";
+    var fb = document.getElementById("fb"), btn = document.getElementById("btn-concluir");
+    if (Farol.estaModuloConcluido(CURSO, MOD)) { fb.textContent = "Concluído."; fb.className = "feedback mostrar ok"; btn.disabled = true; }
+    btn.addEventListener("click", function () {
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Módulo concluído! ✓"; fb.className = "feedback mostrar ok"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

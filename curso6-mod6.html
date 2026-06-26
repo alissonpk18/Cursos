@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 6 · Certificado do Programa — Curso 6 — Farol</title>
+  <meta name="description" content="Emita seu certificado de conclusão de todo o programa Farol (6 cursos).">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso6-mod6" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 6 · Módulo 6 de 6</span>
+      <h1>Certificado do programa</h1>
+      <p class="suave">A grande conquista: o certificado oficial que reúne os 6 cursos do Farol. Gerado 100% no
+        seu navegador, com selo, assinatura, código de verificação e o seu nome.</p>
+    </header>
+
+    <section class="revela" id="cert-programa"></section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso6-mod5.html">← Módulo 5</a>
+      <a class="botao" href="../index.html">Voltar ao catálogo</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 6 · Módulo 6 de 6</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    Farol.Certificado.montar({ escopo: "programa", container: document.getElementById("cert-programa") });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

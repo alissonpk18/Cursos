@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 1 · Fechamento de Caixa — Curso 4 — Farol</title>
+  <meta name="description" content="O ponto de partida do ciclo diário de decisão: o fechamento de caixa.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso4-mod1" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 4 · Módulo 1 de 4</span>
+      <h1>Fechamento de Caixa</h1>
+      <p class="suave">Toda decisão de negócio começa com um dado concreto. O fechamento
+        de caixa é o ponto de partida do ciclo diário.</p>
+    </header>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Por que o caixa é o ponto de partida?</h2>
+      <p>O faturamento do dia é o <strong>termômetro imediato</strong> do seu negócio. Ele te diz
+        se o dia foi bom, se precisa reajustar algo, se tem tendência de queda ou alta.</p>
+      <p class="suave">Sem esse número, qualquer análise de IA é pura especulação.</p>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Exercício: informe o caixa</h2>
+      <p class="suave">Quanto seu negócio faturou hoje (ou no último dia útil)?</p>
+      <div class="campo" style="max-width:18rem">
+        <label for="caixa">Faturamento do dia (R$)</label>
+        <input class="entrada" id="caixa" type="number" min="0" step="0.01" placeholder="Ex.: 2350.00">
+      </div>
+      <div class="flex">
+        <button class="botao" id="btn-salvar">Salvar e concluir</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso4.html">← Curso 4</a>
+      <a class="botao" href="curso4-mod2.html">Módulo 2: Input no Bot →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 4 · Módulo 1 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso4", MOD = "c4m1";
+    var fb = document.getElementById("fb"), btn = document.getElementById("btn-salvar");
+    if (Farol.estaModuloConcluido(CURSO, MOD)) { fb.textContent = "Concluído."; fb.className = "feedback mostrar ok"; btn.disabled = true; }
+    btn.addEventListener("click", function () {
+      var v = parseFloat(document.getElementById("caixa").value);
+      if (isNaN(v) || v < 0) { fb.textContent = "Informe um valor ≥ 0."; fb.className = "feedback mostrar erro"; return; }
+      Farol.definirFlag(CURSO, "caixa", v);
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Caixa R$ " + v.toLocaleString("pt-BR", {minimumFractionDigits:2}) + " registrado. Módulo concluído! ✓";
+      fb.className = "feedback mostrar ok"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

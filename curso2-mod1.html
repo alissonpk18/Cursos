@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 1 · Os 4 Pilares — Curso 2 — Farol</title>
+  <meta name="description" content="Papel, Fonte, Limites e Formato: os 4 pilares de um manual de instruções da IA eficaz.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso2-mod1" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 2 · Módulo 1 de 4</span>
+      <h1>Os 4 Pilares</h1>
+      <p class="suave">Um bom prompt é um contrato. Ele diz quem a IA é, o que pode usar como
+        fonte, o que <strong>não</strong> deve fazer e em que formato responder.</p>
+    </header>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Os 4 pilares de um manual de instruções da IA</h2>
+      <div class="grade-2">
+        <div class="vidro cartao" style="border-left: 3px solid var(--cor-acento)">
+          <strong>1. Papel</strong>
+          <p class="suave" style="font-size:0.9rem">"Você é um analista financeiro do meu negócio." Define o tom e o foco.</p>
+        </div>
+        <div class="vidro cartao" style="border-left: 3px solid var(--cor-acento)">
+          <strong>2. Fonte</strong>
+          <p class="suave" style="font-size:0.9rem">"Responda <em>somente</em> com base nos documentos fornecidos." Ancora no Assistente com Dados.</p>
+        </div>
+        <div class="vidro cartao" style="border-left: 3px solid var(--cor-acento)">
+          <strong>3. Limites</strong>
+          <p class="suave" style="font-size:0.9rem">"Se a informação não estiver nas fontes, diga 'não encontrei'." Mata a invenção.</p>
+        </div>
+        <div class="vidro cartao" style="border-left: 3px solid var(--cor-acento)">
+          <strong>4. Formato</strong>
+          <p class="suave" style="font-size:0.9rem">"Responda em tópicos, com números entre parênteses." Saída previsível.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Exemplo prático</h2>
+      <pre class="vidro cartao" style="background:var(--cor-fundo-2); white-space:pre-wrap; font-family:ui-monospace,monospace; font-size:.88rem; overflow:auto">Você é um consultor de gestão especializado no meu negócio.
+
+FONTE: Responda SOMENTE com base nos documentos que forneci.
+LIMITES: Se a informação não constar nas fontes, diga "não encontrei nos documentos fornecidos" — NUNCA invente.
+FORMATO: Responda em tópicos numerados, com dados entre parênteses quando disponíveis.</pre>
+      <p class="suave">Esse prompt segue os 4 pilares. Note como cada instrução tem uma
+        função clara e verificável.</p>
+    </section>
+
+    <!-- Botão de conclusão -->
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between; align-items:center">
+        <p class="suave" style="margin:0">Entendeu os 4 pilares?</p>
+        <button class="botao" id="btn-concluir">Marcar como lido ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso2.html">← Curso 2</a>
+      <a class="botao" href="curso2-mod2.html">Módulo 2: Temperatura e Controle →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 2 · Módulo 1 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso2", MOD = "c2m1";
+    var fb = document.getElementById("fb");
+    var btn = document.getElementById("btn-concluir");
+    if (Farol.estaModuloConcluido(CURSO, MOD)) {
+      fb.textContent = "Módulo concluído. Você pode reler quando quiser.";
+      fb.className = "feedback mostrar ok";
+      btn.textContent = "Concluído ✓"; btn.disabled = true;
+    }
+    btn.addEventListener("click", function () {
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Módulo concluído! ✓"; fb.className = "feedback mostrar ok";
+      btn.textContent = "Concluído ✓"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>

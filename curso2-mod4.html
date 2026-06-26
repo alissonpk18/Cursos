@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 4 · Quiz Final — Curso 2 — Farol</title>
+  <meta name="description" content="Teste seus conhecimentos sobre engenharia de prompt. Acerte 70% para concluir.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso2-mod4" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 2 · Módulo 4 de 4</span>
+      <h1>Quiz Final</h1>
+      <p class="suave">Teste seus conhecimentos sobre prompts, temperatura e Assistente com Dados. Acerte pelo menos 70% para concluir o curso.</p>
+    </header>
+    <section class="pilha revela">
+      <h2>Quiz — acerte 70% para concluir</h2>
+      <form id="quiz" class="pilha"></form>
+      <div class="flex">
+        <button class="botao" id="btn-corrigir" form="quiz" type="submit">Corrigir quiz</button>
+        <button class="botao botao-fantasma esconder" id="btn-refazer" type="button">Refazer</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso2-mod3.html">← Módulo 3</a>
+      <a class="botao" href="curso2.html">Voltar ao Curso 2</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 2 · Módulo 4 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso2", MOD = "c2m4";
+    var PERGUNTAS = [
+      { pergunta: "Qual instrução melhor reduz invenção de respostas num manual de instruções da IA?",
+        opcoes: ["Seja criativo e responda sempre com confiança.",
+          "Responda apenas com base nos documentos fornecidos; se não houver, diga que não encontrou.",
+          "Use seu conhecimento geral da internet para complementar.",
+          "Responda o mais rápido possível."], correta: 1 },
+      { pergunta: "Para decisões financeiras consistentes, a temperatura ideal é:",
+        opcoes: ["Alta, para variar as respostas", "Baixa, para respostas estáveis e verificáveis",
+          "Irrelevante", "Sempre o máximo"], correta: 1 },
+      { pergunta: "O papel (\"Você é um analista do meu negócio\") serve para:",
+        opcoes: ["Enfeitar o prompt", "Definir tom, foco e perspectiva da resposta",
+          "Aumentar a temperatura", "Substituir o Assistente com Dados"], correta: 1 },
+      { pergunta: "Pedir o formato da resposta (tópicos, tabela, JSON) ajuda porque:",
+        opcoes: ["Deixa a saída previsível e fácil de usar depois",
+          "Faz a IA pensar menos", "Aumenta a invenção de respostas", "Não tem efeito"], correta: 0 },
+      { pergunta: "No contexto de Assistente com Dados, \"ancorar na fonte\" significa:",
+        opcoes: ["Ignorar os documentos", "Obrigar a resposta a se basear nos seus arquivos",
+          "Usar só a internet", "Aumentar a criatividade"], correta: 1 }
+    ];
+    var form = document.getElementById("quiz"), fb = document.getElementById("fb");
+    var btnCorrigir = document.getElementById("btn-corrigir"), btnRefazer = document.getElementById("btn-refazer");
+
+    function renderizar() {
+      form.innerHTML = "";
+      PERGUNTAS.forEach(function (q, i) {
+        var bl = document.createElement("fieldset"); bl.className = "vidro quiz-pergunta"; bl.style.border = "1px solid var(--cor-borda)";
+        var h = '<h3>' + (i+1) + ". " + q.pergunta + '</h3>';
+        q.opcoes.forEach(function (o, j) { h += '<label class="opcao"><input type="radio" name="q'+i+'" value="'+j+'"><span>'+o+'</span></label>'; });
+        bl.innerHTML = h; form.appendChild(bl);
+      });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); var acertos = 0;
+      PERGUNTAS.forEach(function (q, i) {
+        var m = form.querySelector('input[name="q'+i+'"]:checked');
+        var bl = form.querySelectorAll("fieldset")[i];
+        bl.querySelectorAll(".opcao").forEach(function (o) { o.classList.remove("correta","incorreta"); });
+        var labels = bl.querySelectorAll(".opcao"); labels[q.correta].classList.add("correta");
+        if (m) { var v = Number(m.value); if (v === q.correta) acertos++; else labels[v].classList.add("incorreta"); }
+      });
+      var nota = Math.round((acertos / PERGUNTAS.length) * 1000) / 10;
+      if (nota >= 70) {
+        Farol.marcarModuloConcluido(CURSO, MOD, nota);
+        mostrar("ok", "Você acertou " + acertos + "/" + PERGUNTAS.length + " — nota " + nota + ". Curso 2 concluído! ✓");
+      } else { mostrar("erro", "Nota " + nota + ". Precisa de 70. Veja as corretas em verde e tente de novo."); }
+      btnRefazer.classList.remove("esconder"); btnCorrigir.disabled = true;
+    });
+
+    btnRefazer.addEventListener("click", function () {
+      renderizar(); fb.className = "feedback"; btnCorrigir.disabled = false; btnRefazer.classList.add("esconder");
+    });
+
+    function mostrar(t, m) { fb.textContent = m; fb.className = "feedback mostrar " + t; }
+    renderizar();
+    var notaAnt = Farol.pontuacao(CURSO, MOD);
+    if (notaAnt !== null && notaAnt >= 70) mostrar("ok", "Você já concluiu (nota " + notaAnt + "). Pode refazer.");
+    Farol.initReveal();
+  </script>
+</body>
+</html>

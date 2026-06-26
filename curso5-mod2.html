@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 2 · Montando sua Roteiro do Sistema — Curso 5 — Farol</title>
+  <meta name="description" content="Gere a Roteiro do Sistema estruturada do seu projeto com nome, objetivo e entidades.">
+  <script>try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../farol.css">
+</head>
+<body data-pagina="curso5-mod2" data-raiz="../">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="container estreito secao pilha">
+    <header class="pilha revela">
+      <span class="selo">Curso 5 · Módulo 2 de 4</span>
+      <h1>Montando sua Roteiro do Sistema</h1>
+      <p class="suave">Preencha os campos e gere automaticamente uma Roteiro do Sistema estruturada para o seu projeto.</p>
+    </header>
+
+    <section class="vidro cartao pilha revela">
+      <h2 class="mt-0">Gerador de Roteiro do Sistema</h2>
+      <div class="grade-2">
+        <div class="campo"><label for="sp-nome">Nome do projeto</label>
+          <input class="entrada" id="sp-nome" type="text" placeholder="Ex.: Gestor de Estoque ABC"></div>
+        <div class="campo"><label for="sp-obj">Objetivo (a dor que resolve)</label>
+          <input class="entrada" id="sp-obj" type="text" placeholder="Ex.: priorizar compras pela curva ABC"></div>
+      </div>
+      <div class="campo"><label for="sp-ent">Entidades (separe por vírgula)</label>
+        <input class="entrada" id="sp-ent" type="text" placeholder="Ex.: Produto, Venda, Fornecedor, Caixa"></div>
+      <div class="flex">
+        <button class="botao" id="btn-spec">Gerar Roteiro do Sistema</button>
+        <button class="botao botao-fantasma esconder" id="btn-copiar">Copiar</button>
+      </div>
+      <pre id="saida" class="vidro cartao esconder" style="background:var(--cor-fundo-2);white-space:pre-wrap;font-family:ui-monospace,monospace;font-size:.88rem;overflow:auto"></pre>
+    </section>
+
+    <section class="vidro cartao pilha revela">
+      <div class="flex" style="justify-content:space-between;align-items:center">
+        <p class="suave" style="margin:0">Gerou sua Roteiro do Sistema?</p>
+        <button class="botao" id="btn-concluir">Concluir ✓</button>
+      </div>
+      <p class="feedback" id="fb" role="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="flex revela" style="justify-content:space-between">
+      <a class="botao botao-fantasma" href="curso5-mod1.html">← Módulo 1</a>
+      <a class="botao" href="curso5-mod3.html">Módulo 3: Revisão →</a>
+    </nav>
+  </main>
+  <footer class="rodape"><div class="container">Farol · Curso 5 · Módulo 2 de 4</div></footer>
+  <script src="../farol-core.js"></script>
+  <script>
+    "use strict";
+    var CURSO = "curso5", MOD = "c5m2";
+    var saida = document.getElementById("saida"), btnCopiar = document.getElementById("btn-copiar");
+    var fb = document.getElementById("fb"), btn = document.getElementById("btn-concluir");
+
+    document.getElementById("btn-spec").addEventListener("click", function () {
+      var n = (document.getElementById("sp-nome").value || "Projeto sem nome").trim();
+      var o = (document.getElementById("sp-obj").value || "—").trim();
+      var e = (document.getElementById("sp-ent").value || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+      var spec = "# SPEC — " + n + "\nGerada por: Farol · IA para PMEs\nStack alvo: C# (.NET) + SQLite\n\n" +
+        "## Objetivo\n" + o + "\n\n## Entidades (tabelas SQLite)\n" +
+        (e.length ? e.map(function (x) { return "- " + x + " (id INTEGER PRIMARY KEY, ...)"; }).join("\n") : "- (defina ao menos uma)") +
+        "\n\n## Regras de negócio\n- Classificação ABC automática por faturamento.\n- Consulta ancorada na base de conhecimento (Assistente com Dados).\n\n## Próximo passo\nEnviar esta Roteiro do Sistema ao funil de desenvolvimento.";
+      saida.textContent = spec; saida.classList.remove("esconder"); btnCopiar.classList.remove("esconder");
+    });
+
+    btnCopiar.addEventListener("click", function () {
+      navigator.clipboard.writeText(saida.textContent).then(function () {
+        btnCopiar.textContent = "Copiado!"; setTimeout(function () { btnCopiar.textContent = "Copiar"; }, 1500);
+      });
+    });
+
+    if (Farol.estaModuloConcluido(CURSO, MOD)) { fb.textContent = "Concluído."; fb.className = "feedback mostrar ok"; btn.disabled = true; }
+    btn.addEventListener("click", function () {
+      Farol.marcarModuloConcluido(CURSO, MOD);
+      fb.textContent = "Módulo concluído! ✓"; fb.className = "feedback mostrar ok"; btn.disabled = true;
+    });
+    Farol.initReveal();
+  </script>
+</body>
+</html>
