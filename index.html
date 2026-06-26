@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farol · IA para o seu negócio — Comece por aqui</title>
+  <meta name="description" content="Aprenda a usar inteligência artificial no seu negócio, do zero e sem termos técnicos. 6 cursos curtos, grátis, no seu ritmo. Comece agora.">
+  <script>
+    try { document.documentElement.dataset.tema = localStorage.getItem("farol:tema") || "escuro"; } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="farol.css">
+</head>
+
+<body data-pagina="index">
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <main id="conteudo" class="container secao pilha">
+
+    <!-- HERO: uma única ação principal, que se adapta ao seu progresso -->
+    <section class="hero-home pilha revela">
+      <span class="selo">Grátis · IA para donos de pequenos negócios</span>
+      <h1>Aprenda a usar IA no seu negócio</h1>
+      <p class="suave estreito" style="margin-inline:auto" id="hero-desc">
+        Do zero, sem termos técnicos e no seu ritmo. São <span id="hero-num-cursos">6</span> cursos curtos que ensinam,
+        passo a passo, a colocar a inteligência artificial para trabalhar na sua gestão.
+        Você não precisa saber programar.
+      </p>
+
+      <div class="hero-acoes">
+        <a class="botao botao-grande" id="cta-principal" href="#cursos">Começar agora →</a>
+        <a class="botao botao-fantasma" href="#como-funciona">Como funciona?</a>
+      </div>
+
+      <div class="hero-apoio">
+        <span id="hero-totais">📚 6 cursos · 26 módulos</span>
+        <span>⏱️ ~3h00 no total</span>
+        <span>🎓 Certificado em cada curso</span>
+        <span>💾 Progresso salvo neste navegador</span>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA: tira a dúvida "o que eu faço aqui?" -->
+    <section id="como-funciona" class="pilha revela">
+      <h2 class="centro">Como funciona</h2>
+      <div class="passos-onboarding">
+        <div class="passo-ob vidro">
+          <h3>Escolha um curso</h3>
+          <p>Comece pelo Curso 1 da trilha abaixo. Cada curso é independente, então você
+            também pode começar por qualquer um que te interesse mais.</p>
+        </div>
+        <div class="passo-ob vidro">
+          <h3>Faça os módulos</h3>
+          <p>São <span class="dyn-mods-por-curso">4</span> módulos curtos por curso, com exemplos do dia a dia. Pode parar e voltar
+            quando quiser — tudo fica salvo sozinho.</p>
+        </div>
+        <div class="passo-ob vidro">
+          <h3>Receba os certificados</h3>
+          <p>Cada curso concluído emite o <strong>seu próprio certificado</strong> com o seu
+            nome — e, ao terminar os <span class="dyn-num-cursos">6</span>, você ganha o certificado do programa. Tudo direto do
+            navegador, sem mensalidade e sem cadastro.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEU PROGRESSO: só ganha destaque quando você já começou -->
+    <section class="vidro cartao pilha revela" id="painel-progresso">
+      <div class="flex" style="justify-content:space-between">
+        <div>
+          <h2 class="mt-0" style="font-size:1.3rem">Seu progresso</h2>
+          <p class="suave" id="resumo-progresso">Carregando…</p>
+        </div>
+      </div>
+      <div class="progresso-grande"><i id="barra-progresso" style="inline-size:0%"></i></div>
+    </section>
+
+    <!-- TRILHA DE CURSOS -->
+    <section id="cursos" class="pilha">
+      <h2 id="trilha-titulo">A trilha</h2>
+      <p class="suave" style="margin-top:-0.5rem">
+        Pensados para fazer em ordem — um prepara o outro. Mas fique à vontade para
+        começar pelo que faz mais sentido para você agora.
+      </p>
+      <div class="cursos-grid" id="cursos-grid"><!-- preenchido por JS --></div>
+    </section>
+
+    <!-- PRIMEIRA VEZ AQUI? Dúvidas básicas de quem nunca usou -->
+    <section class="pilha revela">
+      <h2>Primeira vez aqui?</h2>
+
+      <details class="faq">
+        <summary>Preciso pagar ou criar uma conta?</summary>
+        <div class="faq-corpo">
+          <p>Não. O Farol é gratuito e não pede cadastro nem senha. As ferramentas usadas
+            nos cursos (como o NotebookLM, do Google) também são gratuitas.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Preciso saber de tecnologia ou programação?</summary>
+        <div class="faq-corpo">
+          <p>Não. Se você sabe enviar um e-mail com anexo, já sabe o suficiente. Tudo é
+            explicado com palavras do dia a dia, passo a passo.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Em que ordem eu faço os cursos?</summary>
+        <div class="faq-corpo">
+          <p>O ideal é seguir do Curso 1 ao <span class="dyn-num-cursos">5</span>, na ordem da trilha. O botão
+            <strong>"Começar agora"</strong> lá em cima já te leva para o ponto certo —
+            e volta para de onde você parou quando você retornar.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Meu progresso fica salvo? E se eu fechar o navegador?</summary>
+        <div class="faq-corpo">
+          <p>Fica salvo automaticamente <strong>neste navegador e neste computador</strong>.
+            Pode fechar e voltar depois que continua de onde parou. Só não troque de
+            computador esperando achar o mesmo progresso.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Quanto tempo leva?</summary>
+        <div class="faq-corpo">
+          <p>Cada curso leva cerca de 30 minutos, somando os <span class="dyn-mods-por-curso">4</span> módulos. Não precisa fazer
+            tudo de uma vez — vá no seu ritmo.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- AJUSTES (discreto): nome opcional + zerar progresso -->
+    <section class="ajustes revela" aria-label="Ajustes">
+      <div class="campo">
+        <label for="nome">Seu nome <span class="dica-campo">(opcional — aparece só no seu certificado)</span></label>
+        <input class="entrada" id="nome" type="text" placeholder="Ex.: Maria Silva"
+               autocomplete="name" maxlength="60">
+      </div>
+      <button class="botao botao-fantasma" id="btn-reset">Zerar meu progresso</button>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container">Farol · curso de IA para pequenos negócios · <span id="ano"></span></div>
+  </footer>
+
+  <script src="farol-core.js"></script>
+  <script>
+    "use strict";
+
+    /* ---------- Helpers de caminho e "próximo passo" ---------- */
+    // Pasta onde mora o curso (ex.: "Base de Conhecimento/").
+    function pastaDoCurso(curso) {
+      var partes = curso.arquivo.split("/");
+      partes.pop();
+      return partes.length ? partes.join("/") + "/" : "";
+    }
+    // Link do próximo módulo a fazer dentro de um curso (ou a página do curso, se concluído).
+    function hrefProximoModulo(curso) {
+      var mod = Farol.proximoModulo(curso.id);
+      return mod ? pastaDoCurso(curso) + mod.arquivo : curso.arquivo;
+    }
+    // Primeiro curso ainda não concluído (o "comece por aqui").
+    function primeiroCursoIncompleto() {
+      for (var i = 0; i < Farol.CURSOS.length; i++) {
+        var c = Farol.CURSOS[i];
+        var p = Farol.progressoCurso(c.id);
+        if (p.concluidos < p.total) return c;
+      }
+      return null;
+    }
+
+    var prog = Farol.progressoGeral();
+
+    /* ---------- Painel de progresso ---------- */
+    document.getElementById("barra-progresso").style.inlineSize = prog.percentual + "%";
+    document.getElementById("resumo-progresso").textContent =
+      prog.concluidos === 0
+        ? "Você ainda não começou. Que tal o Curso 1, logo abaixo? 👇"
+        : prog.concluidos === prog.total
+          ? "Parabéns! Você concluiu todos os cursos. 🎉"
+          : prog.concluidos + " de " + prog.total + " módulos concluídos. Continue de onde parou.";
+
+    /* ---------- Ação principal do hero (adaptativa) ---------- */
+    var cta = document.getElementById("cta-principal");
+    var recomendado = primeiroCursoIncompleto();
+    if (prog.concluidos === prog.total) {
+      // Tudo pronto: leva ao certificado.
+      var ultimo = Farol.CURSOS[Farol.CURSOS.length - 1];
+      cta.href = hrefProximoModulo(ultimo);
+      cta.textContent = "🎉 Ver meu certificado";
+    } else if (prog.concluidos === 0) {
+      cta.href = hrefProximoModulo(recomendado);
+      cta.textContent = "Começar agora →";
+    } else {
+      cta.href = hrefProximoModulo(recomendado);
+      cta.textContent = "Continuar de onde parei →";
+    }
+
+    /* ---------- Grade de cursos (trilha numerada) ---------- */
+    var grid = document.getElementById("cursos-grid");
+    Farol.CURSOS.forEach(function (curso, i) {
+      var p = Farol.progressoCurso(curso.id);
+      var concluido = p.concluidos === p.total;
+      var ehRecomendado = recomendado && curso.id === recomendado.id;
+
+      var acaoTexto = concluido ? "Revisar" : (p.concluidos > 0 ? "Continuar" : "Começar");
+
+      var statusSelo = concluido
+        ? '<span class="selo ok">Concluído</span>'
+        : (ehRecomendado
+            ? '<span class="selo">⭐ Comece por aqui</span>'
+            : (p.concluidos > 0
+                ? '<span class="selo">' + p.concluidos + '/' + p.total + '</span>'
+                : '<span class="selo pendente">Novo</span>'));
+
+      var a = document.createElement("a");
+      a.className = "curso-card vidro" +
+        (concluido ? " curso-concluido" : "") +
+        (ehRecomendado ? " recomendado" : "");
+      a.href = curso.arquivo;
+      a.style.setProperty("--curso-cor", curso.cor);
+      a.innerHTML =
+        '<div class="curso-card-header">' +
+          '<span class="curso-icone">' + curso.icone + '</span>' +
+          statusSelo +
+        '</div>' +
+        '<span class="curso-ordem">Curso ' + (i + 1) + ' de ' + Farol.CURSOS.length + '</span>' +
+        '<h3 class="curso-titulo">' + curso.titulo + '</h3>' +
+        '<p class="curso-sub">' + curso.subtitulo + '</p>' +
+        '<div class="curso-barra"><i style="inline-size:' + p.percentual + '%"></i></div>' +
+        '<span class="curso-modulos">' + p.total + ' módulos · ' + p.percentual + '% concluído</span>' +
+        '<span class="curso-acao">' + acaoTexto + ' →</span>';
+      grid.appendChild(a);
+    });
+
+    /* ---------- Nome do aluno (opcional) ---------- */
+    var inputNome = document.getElementById("nome");
+    inputNome.value = Farol.nome();
+    inputNome.addEventListener("input", function () { Farol.definirNome(inputNome.value); });
+
+    /* ---------- Zerar progresso ---------- */
+    document.getElementById("btn-reset").addEventListener("click", function () {
+      if (confirm("Isso apaga seu progresso de todos os cursos. Não dá para desfazer. Continuar?")) {
+        Farol.resetar();
+        location.reload();
+      }
+    });
+
+    /* ---------- Ano + animações ---------- */
+    document.getElementById("ano").textContent = new Date().getFullYear();
+
+    /* ---------- Totais dinâmicos ---------- */
+    var totalMods = 0;
+    Farol.CURSOS.forEach(function (c) { totalMods += c.modulos.length; });
+    var numCursos = Farol.CURSOS.length;
+    var modsPorCurso = numCursos > 0 ? Math.round(totalMods / numCursos) : 4;
+
+    document.getElementById("hero-totais").textContent =
+      "📚 " + numCursos + " cursos · " + totalMods + " módulos";
+    document.getElementById("hero-num-cursos").textContent = numCursos;
+    document.getElementById("trilha-titulo").textContent = "A trilha: " + numCursos + " cursos";
+
+    // Atualiza todos os spans dinâmicos de classe
+    document.querySelectorAll(".dyn-num-cursos").forEach(function (el) { el.textContent = numCursos; });
+    document.querySelectorAll(".dyn-mods-por-curso").forEach(function (el) { el.textContent = modsPorCurso; });
+
+    // Tempo estimado dinâmico
+    var tempoTotal = numCursos * 30; // ~30min por curso
+    var horas = Math.floor(tempoTotal / 60);
+    var minutos = tempoTotal % 60;
+    var tempoTexto = horas > 0 ? "~" + horas + "h" + (minutos > 0 ? minutos : "") : "~" + minutos + "min";
+    var spanTempo = document.querySelector('.hero-apoio span:nth-child(2)');
+    if (spanTempo) spanTempo.textContent = "⏱️ " + tempoTexto + " no total";
+
+    Farol.initReveal();
+  </script>
+</body>
+</html>

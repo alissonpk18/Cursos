@@ -1,0 +1,537 @@
+/* ============================================================================
+   Farol · Sistema de design compartilhado
+   Direção estética: dark-first glass (ver vanilla-web-2026/design-direction).
+   Carregado por todas as páginas. Tokens em oklch + light-dark(); o tema é
+   alternável via [data-tema] no <html>.
+   ========================================================================== */
+
+@layer reset, base, layout, componentes, utilitarios;
+
+/* ---------- Tokens ---------- */
+:root {
+  --cor-fundo:      light-dark(oklch(97% 0.01 250),  oklch(15% 0.022 265));
+  --cor-fundo-2:    light-dark(oklch(99% 0.005 250), oklch(19% 0.025 265));
+  --cor-vidro:      light-dark(oklch(100% 0 0 / 0.7), oklch(26% 0.03 265 / 0.55));
+  --cor-borda:      light-dark(oklch(86% 0.01 250),  oklch(100% 0 0 / 0.12));
+  --cor-texto:      light-dark(oklch(22% 0.02 265),  oklch(95% 0.01 265));
+  --cor-suave:      light-dark(oklch(46% 0.02 265),  oklch(73% 0.02 265));
+  --cor-acento:     light-dark(oklch(54% 0.18 244),  oklch(72% 0.15 220));
+  --cor-acento-2:   light-dark(oklch(58% 0.17 168),  oklch(75% 0.15 168));
+  --cor-ok:         oklch(68% 0.17 152);
+  --cor-erro:       oklch(64% 0.21 25);
+  --cor-aviso:      oklch(78% 0.16 85);
+  --brilho:         0 0 0 1px var(--cor-borda), 0 8px 40px oklch(0% 0 0 / 0.35);
+
+  --texto-h1:   clamp(2.2rem, 1.6rem + 3vw, 3.8rem);
+  --texto-h2:   clamp(1.6rem, 1.3rem + 1.4vw, 2.3rem);
+  --texto-base: clamp(1rem, 0.96rem + 0.25vw, 1.1rem);
+
+  --espaco-1: 0.5rem; --espaco-2: 1rem; --espaco-3: 1.5rem;
+  --espaco-4: 2.5rem; --espaco-5: 4rem;
+  --secao: clamp(2.5rem, 6vw, 5rem);
+
+  --raio:    1rem;
+  --raio-sm: 0.6rem;
+  --largura: 70rem;
+}
+:root[data-tema="claro"] { color-scheme: light; }
+:root[data-tema="escuro"] { color-scheme: dark; }
+
+/* ---------- Reset ---------- */
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  img, svg, canvas { display: block; max-width: 100%; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: none; }
+  :focus-visible { outline: 2px solid var(--cor-acento); outline-offset: 3px; border-radius: 6px; }
+  ::selection { background: var(--cor-acento); color: oklch(99% 0 0); }
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-size: var(--texto-base);
+    line-height: 1.6;
+    color: var(--cor-texto);
+    /* Fundo com dois halos de luz — a "atmosfera" do glass. */
+    background:
+      radial-gradient(60rem 40rem at 80% -10%, oklch(60% 0.16 244 / 0.18), transparent 60%),
+      radial-gradient(50rem 40rem at -10% 10%, oklch(60% 0.16 168 / 0.12), transparent 55%),
+      var(--cor-fundo);
+    background-attachment: fixed;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { line-height: 1.1; letter-spacing: -0.02em; text-wrap: balance; }
+  h1 { font-size: var(--texto-h1); }
+  h2 { font-size: var(--texto-h2); }
+  p { text-wrap: pretty; }
+  a { color: var(--cor-acento); text-underline-offset: 0.2em; }
+  code, kbd {
+    font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    font-size: 0.9em; background: var(--cor-fundo-2);
+    border: 1px solid var(--cor-borda); border-radius: 6px; padding: 0.1em 0.4em;
+  }
+  section { scroll-margin-top: 6rem; }
+}
+
+/* ---------- Layout ---------- */
+@layer layout {
+  .container { width: min(100% - 2 * var(--espaco-3), var(--largura)); margin-inline: auto; }
+  .estreito { max-width: 52rem; }
+  .secao { padding-block: var(--secao); }
+  .pilha > * + * { margin-top: var(--espaco-3); }
+
+  .pular-link {
+    position: absolute; left: var(--espaco-2); top: -4rem; z-index: 20;
+    background: var(--cor-acento); color: oklch(99% 0 0);
+    padding: var(--espaco-1) var(--espaco-2); border-radius: var(--raio-sm);
+    transition: top .2s;
+  }
+  .pular-link:focus { top: var(--espaco-2); }
+}
+
+/* ---------- Componentes ---------- */
+@layer componentes {
+
+  /* Barra superior (injetada por farol-core.js) */
+  .topo {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between; gap: var(--espaco-3);
+    padding: 0.75rem var(--espaco-3);
+    background: color-mix(in oklch, var(--cor-fundo) 75%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid var(--cor-borda);
+  }
+  .topo-area { display: flex; align-items: center; gap: var(--espaco-3); }
+  .marca { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700;
+    letter-spacing: -0.03em; color: var(--cor-texto); text-decoration: none; }
+  .marca svg { color: var(--cor-acento); }
+  .topo-voltar { display: inline-flex; align-items: center; gap: 0.35rem;
+    color: var(--cor-suave); text-decoration: none; font-size: 0.95rem; }
+  .topo-voltar:hover { color: var(--cor-texto); }
+  .topo-progresso { display: flex; align-items: center; gap: 0.5rem; color: var(--cor-suave);
+    font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+  .barra-mini { inline-size: 6rem; block-size: 0.4rem; border-radius: 99px;
+    background: var(--cor-borda); overflow: hidden; }
+  .barra-mini i { display: block; block-size: 100%; border-radius: 99px;
+    background: linear-gradient(90deg, var(--cor-acento), var(--cor-acento-2));
+    transition: inline-size .5s ease; }
+
+  /* Botão de ícone com troca sol/lua */
+  .btn-icone { display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem;
+    border: 1px solid var(--cor-borda); border-radius: 50%; background: var(--cor-vidro); }
+  .btn-icone:hover { border-color: var(--cor-acento); }
+  .icone-sol { display: none; }
+  :root[data-tema="escuro"] .icone-sol { display: block; }
+  :root[data-tema="escuro"] .icone-lua { display: none; }
+
+  /* Botões */
+  .botao { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.75em 1.4em; border-radius: var(--raio-sm); font-weight: 600;
+    text-decoration: none; border: 1px solid transparent;
+    background: linear-gradient(180deg, var(--cor-acento), color-mix(in oklch, var(--cor-acento), black 14%));
+    color: oklch(99% 0 0); transition: transform .15s, box-shadow .2s, opacity .2s; }
+  .botao:hover { transform: translateY(-2px); box-shadow: 0 10px 30px oklch(60% 0.16 244 / 0.4); }
+  .botao:disabled, .botao[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+  .botao-fantasma { background: var(--cor-vidro); color: var(--cor-texto); border-color: var(--cor-borda); }
+  .botao-fantasma:hover { box-shadow: none; border-color: var(--cor-acento); }
+
+  /* Painel de vidro — a superfície base do sistema */
+  .vidro {
+    background: var(--cor-vidro);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    backdrop-filter: blur(16px) saturate(130%);
+    box-shadow: var(--brilho);
+  }
+  /* Fallback se backdrop-filter não existir: superfície sólida mais opaca. */
+  @supports not (backdrop-filter: blur(1px)) {
+    .vidro, .topo { background: var(--cor-fundo-2); }
+  }
+
+  .cartao { padding: var(--espaco-3); }
+
+  /* Selo/etiqueta */
+  .selo { display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.25rem 0.6rem; border-radius: 99px;
+    background: color-mix(in oklch, var(--cor-acento) 16%, transparent); color: var(--cor-acento); }
+  .selo.ok { background: color-mix(in oklch, var(--cor-ok) 18%, transparent); color: var(--cor-ok); }
+  .selo.pendente { background: color-mix(in oklch, var(--cor-suave) 16%, transparent); color: var(--cor-suave); }
+
+  /* ============ Catálogo de Cursos (index) ============ */
+  .cursos-grid {
+    display: grid;
+    gap: var(--espaco-3);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  }
+
+  .curso-card {
+    --curso-cor: var(--cor-acento);
+    display: flex; flex-direction: column; gap: 0.6rem;
+    padding: var(--espaco-3);
+    text-decoration: none; color: inherit;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .curso-card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, color-mix(in oklch, var(--curso-cor) 10%, transparent), transparent 60%);
+    pointer-events: none;
+    transition: opacity .3s;
+    opacity: 0.5;
+  }
+  .curso-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--curso-cor);
+    box-shadow: 0 16px 48px color-mix(in oklch, var(--curso-cor) 25%, transparent);
+  }
+  .curso-card:hover::before { opacity: 1; }
+  .curso-card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .curso-icone {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 8px oklch(0% 0 0 / 0.3));
+  }
+  .curso-titulo {
+    font-weight: 700; font-size: 1.2rem; letter-spacing: -0.01em;
+    position: relative; z-index: 1;
+  }
+  .curso-sub {
+    color: var(--cor-suave); font-size: 0.9rem;
+    position: relative; z-index: 1;
+  }
+  .curso-barra {
+    block-size: 0.4rem; border-radius: 99px;
+    background: var(--cor-borda); overflow: hidden;
+    position: relative; z-index: 1;
+  }
+  .curso-barra i {
+    display: block; block-size: 100%; border-radius: 99px;
+    background: var(--curso-cor);
+    transition: inline-size .6s ease;
+  }
+  .curso-modulos {
+    font-size: 0.8rem; color: var(--cor-suave);
+    position: relative; z-index: 1;
+  }
+  .curso-concluido { border-color: var(--cor-ok); }
+  .curso-concluido .curso-barra i { background: var(--cor-ok); }
+
+  /* ============ Página de Curso (mapa de módulos) ============ */
+  .curso-hero {
+    display: flex; align-items: center; gap: var(--espaco-3);
+    flex-wrap: wrap;
+  }
+  .curso-hero-icone { font-size: 3.5rem; }
+  .curso-hero-info { flex: 1; min-width: 200px; }
+
+  .modulos-grid {
+    display: grid; gap: var(--espaco-3);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  }
+
+  /* Mapa de nós (herdado do design anterior, agora para módulos dentro de um curso) */
+  .no {
+    position: relative; display: flex; flex-direction: column; gap: 0.4rem;
+    padding: var(--espaco-3); text-decoration: none; color: inherit;
+    transition: transform .2s, border-color .2s;
+  }
+  .no:hover { transform: translateY(-4px); border-color: var(--cor-acento); }
+  .no-num { display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem;
+    border-radius: 50%; font-weight: 700; border: 1px solid var(--cor-borda);
+    background: var(--cor-fundo-2); }
+  .no:has(.selo.ok) .no-num { background: var(--cor-ok); color: oklch(18% 0.04 152); border-color: transparent; }
+  .no-titulo { font-weight: 700; letter-spacing: -0.01em; }
+  .no-sub { color: var(--cor-suave); font-size: 0.92rem; }
+  .no-criterio { color: var(--cor-suave); font-size: 0.82rem; margin-top: auto; padding-top: 0.5rem; }
+  .no.atual { border-color: var(--cor-acento);
+    box-shadow: 0 0 0 1px var(--cor-acento), 0 12px 40px oklch(60% 0.16 244 / 0.3); }
+
+  /* Barra de progresso grande */
+  .progresso-grande { block-size: 0.7rem; border-radius: 99px; background: var(--cor-borda); overflow: hidden; }
+  .progresso-grande i { display: block; block-size: 100%;
+    background: linear-gradient(90deg, var(--cor-acento), var(--cor-acento-2));
+    transition: inline-size .6s ease; }
+
+  /* Formulários */
+  .campo { display: flex; flex-direction: column; gap: 0.4rem; }
+  .campo label { font-weight: 600; font-size: 0.92rem; }
+  .entrada { inline-size: 100%; padding: 0.8em 1em; border-radius: var(--raio-sm);
+    background: var(--cor-fundo-2); border: 1px solid var(--cor-borda); color: var(--cor-texto); }
+  .entrada:focus-visible { border-color: var(--cor-acento); outline: none; box-shadow: 0 0 0 3px color-mix(in oklch, var(--cor-acento) 30%, transparent); }
+  .campo:has(.entrada:invalid:not(:placeholder-shown)) .entrada { border-color: var(--cor-erro); }
+
+  .feedback { font-size: 0.92rem; padding: 0.75rem 1rem; border-radius: var(--raio-sm); display: none; }
+  .feedback.mostrar { display: block; }
+  .feedback.ok { background: color-mix(in oklch, var(--cor-ok) 14%, transparent); color: var(--cor-ok); }
+  .feedback.erro { background: color-mix(in oklch, var(--cor-erro) 14%, transparent); color: var(--cor-erro); }
+
+  /* Quiz (renderizado por JS) */
+  .quiz-pergunta { padding: var(--espaco-3); }
+  .quiz-pergunta h3 { margin-bottom: var(--espaco-2); }
+  .opcao { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.7rem 0.9rem;
+    border: 1px solid var(--cor-borda); border-radius: var(--raio-sm); margin-block: 0.4rem;
+    cursor: pointer; transition: border-color .15s, background .15s; }
+  .opcao:hover { border-color: var(--cor-acento); }
+  .opcao input { accent-color: var(--cor-acento); margin-top: 0.2rem; }
+  .opcao:has(input:checked) { border-color: var(--cor-acento);
+    background: color-mix(in oklch, var(--cor-acento) 10%, transparent); }
+  .opcao.correta { border-color: var(--cor-ok); background: color-mix(in oklch, var(--cor-ok) 12%, transparent); }
+  .opcao.incorreta { border-color: var(--cor-erro); background: color-mix(in oklch, var(--cor-erro) 12%, transparent); }
+
+  /* Passos do ciclo (curso 4) */
+  .ciclo { display: grid; gap: var(--espaco-2);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); }
+  .passo { padding: var(--espaco-2); text-align: center; opacity: 0.55;
+    transition: opacity .3s, border-color .3s, transform .3s; }
+  .passo.ativo { opacity: 1; border-color: var(--cor-acento); transform: scale(1.03); }
+  .passo.feito { opacity: 1; border-color: var(--cor-ok); }
+  .passo .passo-icone { color: var(--cor-acento); margin-bottom: 0.4rem; }
+
+  /* Palco 3D (curso 3) */
+  .palco { position: relative; aspect-ratio: 16 / 10; border-radius: var(--raio);
+    overflow: hidden; background: oklch(12% 0.02 265); border: 1px solid var(--cor-borda); }
+  .palco canvas { inline-size: 100%; block-size: 100%; }
+  .palco-aviso { position: absolute; inset: 0; display: grid; place-items: center;
+    text-align: center; padding: var(--espaco-3); color: var(--cor-suave); }
+  .hud { position: absolute; inset-block-start: 0.8rem; inset-inline: 0.8rem;
+    display: flex; gap: 0.5rem; justify-content: space-between; pointer-events: none; }
+  .hud .selo { pointer-events: auto; }
+
+  /* Checklist interativo */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    padding: 0.9rem 1rem; margin-block: 0.4rem;
+    border: 1px solid var(--cor-borda); border-radius: var(--raio-sm);
+    transition: border-color .2s, background .2s;
+    cursor: pointer;
+  }
+  .checklist li:hover { border-color: var(--cor-acento); }
+  .checklist li input[type="checkbox"] {
+    accent-color: var(--cor-ok); margin-top: 0.15rem;
+    width: 1.2rem; height: 1.2rem; flex-shrink: 0;
+  }
+  .checklist li:has(input:checked) {
+    border-color: var(--cor-ok);
+    background: color-mix(in oklch, var(--cor-ok) 8%, transparent);
+  }
+  .checklist li:has(input:checked) span {
+    text-decoration: line-through; opacity: 0.7;
+  }
+
+  /* ============ Certificado (painel de emissão reutilizável) ============ */
+  .cert-painel { position: relative; overflow: hidden; }
+  .cert-painel::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.7;
+    background: linear-gradient(135deg,
+      color-mix(in oklch, var(--cor-acento) 14%, transparent), transparent 55%);
+  }
+  .cert-painel > * { position: relative; z-index: 1; }
+  .cert-cabecalho { display: flex; flex-direction: column; gap: 0.4rem; }
+  .cert-tag {
+    align-self: flex-start; font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 0.28rem 0.7rem; border-radius: 99px;
+    background: color-mix(in oklch, var(--cor-acento) 18%, transparent);
+    color: var(--cor-acento);
+  }
+  .cert-campo small { font-size: 0.8rem; }
+  .cert-gerar.cert-indisponivel { opacity: 0.55; filter: grayscale(0.25); }
+  .cert-bloqueio a, .cert-msg a { color: inherit; font-weight: 700; text-underline-offset: 0.15em; }
+  .cert-moldura {
+    margin-top: 0.4rem; padding: 0.5rem; border-radius: var(--raio);
+    border: 1px solid var(--cor-borda);
+    background: color-mix(in oklch, var(--cor-acento) 8%, transparent);
+  }
+  .cert-canvas {
+    width: 100%; height: auto; display: block;
+    border-radius: calc(var(--raio) - 0.35rem);
+    box-shadow: 0 18px 50px oklch(0% 0 0 / 0.5);
+  }
+
+  /* Rodapé */
+  .rodape { border-top: 1px solid var(--cor-borda); padding-block: var(--espaco-4);
+    color: var(--cor-suave); text-align: center; font-size: 0.9rem; }
+}
+
+/* ---------- Utilitários ---------- */
+@layer utilitarios {
+  .centro { text-align: center; }
+  .suave { color: var(--cor-suave); }
+  .grade-2 { display: grid; gap: var(--espaco-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
+  .flex { display: flex; gap: var(--espaco-2); flex-wrap: wrap; align-items: center; }
+  .mt-0 { margin-top: 0; }
+  .esconder { display: none !important; }
+
+  /* Reveal no scroll */
+  .revela { opacity: 0; translate: 0 1.5rem; transition: opacity .6s ease, translate .6s ease; }
+  .revela.visivel { opacity: 1; translate: 0 0; }
+}
+
+/* ============================================================================
+   Conteúdo de curso enriquecido — componentes de leitura
+   (metadados, callouts, passos numerados, FAQ, balões de conversa)
+   Usados pelas páginas de curso/módulo para deixar o conteúdo mais didático.
+   ========================================================================== */
+@layer componentes {
+
+  /* Pílulas de metadados: tempo, nível, formato… */
+  .meta-pilulas { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .pilula {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.82rem; font-weight: 600;
+    padding: 0.35rem 0.8rem; border-radius: 99px;
+    background: var(--cor-fundo-2); border: 1px solid var(--cor-borda);
+    color: var(--cor-suave);
+  }
+
+  /* Caixa de destaque (callout) com variações de tom */
+  .callout {
+    display: flex; gap: 0.9rem;
+    padding: var(--espaco-3);
+    border: 1px solid var(--cor-borda);
+    border-left: 4px solid var(--cor-acento);
+    border-radius: var(--raio-sm);
+    background: color-mix(in oklch, var(--cor-acento) 7%, transparent);
+  }
+  .callout-icone { font-size: 1.4rem; line-height: 1.5; flex-shrink: 0; }
+  .callout-corpo { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+  .callout-corpo > strong:first-child { font-size: 1.02rem; }
+  .callout p { margin: 0; }
+  .callout.dica    { border-left-color: var(--cor-acento-2);
+    background: color-mix(in oklch, var(--cor-acento-2) 9%, transparent); }
+  .callout.atencao { border-left-color: var(--cor-aviso);
+    background: color-mix(in oklch, var(--cor-aviso) 12%, transparent); }
+  .callout.sucesso { border-left-color: var(--cor-ok);
+    background: color-mix(in oklch, var(--cor-ok) 9%, transparent); }
+
+  /* Passos numerados com bolinha grande */
+  .passos-num { list-style: none; padding: 0; counter-reset: passo; display: grid; gap: var(--espaco-2); }
+  .passos-num > li {
+    position: relative; padding-left: 3.4rem; min-height: 2.4rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .passos-num > li::before {
+    counter-increment: passo; content: counter(passo);
+    position: absolute; left: 0; top: 0;
+    display: grid; place-items: center; width: 2.4rem; height: 2.4rem;
+    border-radius: 50%; font-weight: 700; font-size: 0.95rem;
+    color: oklch(99% 0 0);
+    background: linear-gradient(180deg, var(--cor-acento), color-mix(in oklch, var(--cor-acento), black 14%));
+  }
+  .passos-num > li strong { display: block; }
+  .passos-num > li .passo-sub { color: var(--cor-suave); font-size: 0.92rem; }
+
+  /* FAQ em acordeão (usa <details>/<summary>) */
+  .faq { border: 1px solid var(--cor-borda); border-radius: var(--raio-sm);
+    background: var(--cor-fundo-2); overflow: hidden; }
+  .faq + .faq { margin-top: 0.6rem; }
+  .faq summary {
+    padding: 0.95rem 1.1rem; cursor: pointer; font-weight: 600;
+    list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-size: 1.35rem; color: var(--cor-acento); line-height: 1; }
+  .faq[open] summary::after { content: "\2013"; }
+  .faq-corpo { padding: 0 1.1rem 1rem; color: var(--cor-suave); }
+  .faq-corpo > * + * { margin-top: 0.6rem; }
+
+  /* Balões de exemplo (conversa com a IA) */
+  .conversa { display: flex; flex-direction: column; gap: 0.7rem; }
+  .balao { padding: 0.75rem 1rem; border-radius: var(--raio-sm); font-size: 0.95rem; }
+  .balao p { margin: 0; }
+  .balao-rotulo { display: block; font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--cor-suave); margin-bottom: 0.3rem; }
+  .balao.pergunta { align-self: flex-start; max-width: 92%;
+    background: color-mix(in oklch, var(--cor-acento) 14%, transparent);
+    border: 1px solid color-mix(in oklch, var(--cor-acento) 30%, transparent); }
+  .balao.resposta { background: var(--cor-fundo); border: 1px solid var(--cor-borda); }
+  .balao.ruim { border-color: color-mix(in oklch, var(--cor-erro) 45%, transparent); }
+  .balao.boa  { border-color: color-mix(in oklch, var(--cor-ok) 45%, transparent); }
+
+  /* Lista com check verde (o que você vai aprender) */
+  .lista-check { list-style: none; padding: 0; display: grid; gap: 0.6rem; }
+  .lista-check li { display: flex; align-items: flex-start; gap: 0.7rem; }
+  .lista-check li::before { content: "\2713"; color: var(--cor-ok); font-weight: 800; flex-shrink: 0; }
+
+  /* Banner de objetivo (o que você vai construir) */
+  .objetivo-banner {
+    display: flex; gap: var(--espaco-3); align-items: center; flex-wrap: wrap;
+    background:
+      linear-gradient(135deg,
+        color-mix(in oklch, var(--cor-acento) 16%, transparent),
+        color-mix(in oklch, var(--cor-acento-2) 12%, transparent)),
+      var(--cor-vidro);
+  }
+  .objetivo-banner .objetivo-icone { font-size: 2.6rem; line-height: 1; }
+  .objetivo-banner .objetivo-texto { flex: 1; min-width: 220px; }
+
+  /* Contador de progresso do checklist */
+  .checklist-status { font-size: 0.9rem; font-weight: 600; color: var(--cor-suave); }
+}
+
+/* ============================================================================
+   Onboarding da home — pensado para quem nunca usou o site.
+   Hero com ação principal única, "como funciona" em 3 passos, trilha numerada.
+   ========================================================================== */
+@layer componentes {
+
+  /* Hero da home: ação principal grande + linha de apoio */
+  .hero-home { text-align: center; gap: var(--espaco-3); }
+  .hero-home h1 { margin: 0; }
+  .hero-acoes { display: flex; flex-wrap: wrap; gap: var(--espaco-2);
+    justify-content: center; align-items: center; }
+  .botao-grande { padding: 0.95em 2em; font-size: 1.1rem; border-radius: var(--raio); }
+  .hero-apoio { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; justify-content: center;
+    color: var(--cor-suave); font-size: 0.88rem; }
+  .hero-apoio span { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+  /* "Como funciona" — 3 passos numerados, lado a lado */
+  .passos-onboarding {
+    display: grid; gap: var(--espaco-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    counter-reset: ob;
+  }
+  .passo-ob { padding: var(--espaco-3); display: flex; flex-direction: column; gap: 0.5rem; }
+  .passo-ob::before {
+    counter-increment: ob; content: counter(ob);
+    display: grid; place-items: center; width: 2.6rem; height: 2.6rem;
+    border-radius: 50%; font-weight: 700; font-size: 1.1rem; color: oklch(99% 0 0);
+    background: linear-gradient(180deg, var(--cor-acento), color-mix(in oklch, var(--cor-acento), black 14%));
+  }
+  .passo-ob h3 { font-size: 1.05rem; margin: 0; }
+  .passo-ob p { margin: 0; color: var(--cor-suave); font-size: 0.92rem; }
+
+  /* Selo "Comece por aqui" no curso recomendado + número de ordem */
+  .curso-card.recomendado { border-color: var(--curso-cor);
+    box-shadow: 0 0 0 1px var(--curso-cor), 0 16px 48px color-mix(in oklch, var(--curso-cor) 22%, transparent); }
+  .curso-ordem { font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--cor-suave); position: relative; z-index: 1; }
+  .curso-acao { margin-top: 0.2rem; font-weight: 700; font-size: 0.92rem;
+    color: var(--curso-cor); display: inline-flex; align-items: center; gap: 0.35rem;
+    position: relative; z-index: 1; }
+  .curso-card:hover .curso-acao { gap: 0.6rem; }
+
+  /* Área de ajustes (discreta) — nome opcional + zerar progresso */
+  .ajustes { border-top: 1px dashed var(--cor-borda); padding-top: var(--espaco-3);
+    display: flex; flex-wrap: wrap; gap: var(--espaco-3); align-items: flex-end;
+    justify-content: space-between; }
+  .ajustes .campo { flex: 1; min-width: 16rem; }
+  .ajustes .dica-campo { font-size: 0.8rem; color: var(--cor-suave); font-weight: 400; }
+}
+
+/* Respeita preferência por menos movimento. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  .revela { opacity: 1; translate: 0; }
+}
