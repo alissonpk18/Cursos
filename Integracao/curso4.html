@@ -127,9 +127,8 @@
 
     <section class="revela" id="cert-curso"></section>
 
-    <nav class="flex revela" style="justify-content:space-between">
+    <nav class="flex revela" style="justify-content:space-between" id="nav-proximas">
       <a class="botao botao-fantasma" href="../Analisadores/curso3.html">← Curso 3: Análise de Vendas e Estoque</a>
-      <a class="botao" href="../Especificacao/curso5.html">Curso 5: Planejando seu Próprio Sistema →</a>
     </nav>
   </main>
   <footer class="rodape"><div class="container">Farol · Curso 4 — Rotina Diária Eficiente com IA</div></footer>
@@ -178,6 +177,15 @@
         '<span class="no-criterio">Conclui ao: ' + mod.criterio + '</span>';
       mapa.appendChild(a);
     });
+
+    if (prog.concluidos === prog.total) {
+      var navProximas = document.getElementById("nav-proximas");
+      var linkProximo = document.createElement("a");
+      linkProximo.className = "botao";
+      linkProximo.href = "../Especificacao/curso5.html";
+      linkProximo.textContent = "Curso 5: Planejando seu Próprio Sistema →";
+      navProximas.appendChild(linkProximo);
+    }
 
     Farol.Certificado.montar({ escopo: "curso", cursoId: CURSO_ID, container: document.getElementById("cert-curso") });
     Farol.initReveal();
