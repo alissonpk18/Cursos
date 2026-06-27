@@ -852,7 +852,7 @@
      Certificado — renderizador profissional (Canvas) + UI reutilizável.
      Centraliza a VALIDAÇÃO: sem nome válido OU sem os módulos exigidos
      concluídos, nenhum certificado é emitido. Cada curso tem o seu certificado,
-     e há o certificado final do programa (todos os 5 cursos).
+     e há o certificado final do programa (todos os 6 cursos).
      ------------------------------------------------------------------------- */
   var Certificado = (function () {
     var FONTE_TITULO = '"Playfair Display", Georgia, "Times New Roman", serif';
