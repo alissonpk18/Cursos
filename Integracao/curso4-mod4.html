@@ -64,10 +64,16 @@
     var bot = Farol.flag(CURSO, "bot");
     var pergunta = Farol.flag(CURSO, "pergunta");
     var resumo = document.getElementById("resumo");
+    // Escapa valores vindos do usuário (localStorage) antes de inserir no HTML.
+    function esc(v) {
+      return String(v).replace(/[&<>"']/g, function (ch) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+      });
+    }
     resumo.innerHTML =
       "<p><strong>Caixa de hoje:</strong> " + (caixa != null ? "R$ " + Number(caixa).toLocaleString("pt-BR", {minimumFractionDigits:2}) : "<em>não preenchido (módulo 1)</em>") + "</p>" +
-      "<p><strong>Canal:</strong> " + (bot || "<em>não escolhido (módulo 2)</em>") + "</p>" +
-      "<p><strong>Pergunta ao Assistente com Dados:</strong> " + (pergunta || "<em>não formulada (módulo 3)</em>") + "</p>" +
+      "<p><strong>Canal:</strong> " + (bot ? esc(bot) : "<em>não escolhido (módulo 2)</em>") + "</p>" +
+      "<p><strong>Pergunta ao Assistente com Dados:</strong> " + (pergunta ? esc(pergunta) : "<em>não formulada (módulo 3)</em>") + "</p>" +
       "<p style='margin-top:.6rem'><strong>Decisão sugerida:</strong> repriorizar a reposição pelos itens de maior giro (curva A) e revisar a margem antes de comprar itens da curva C.</p>";
 
     if (Farol.estaModuloConcluido(CURSO, MOD)) { fb.textContent = "Curso 4 concluído! ✓"; fb.className = "feedback mostrar ok"; btn.disabled = true; }

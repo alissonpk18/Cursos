@@ -1148,7 +1148,7 @@
         
         ctx.fillStyle = "#8093ad";
         ctx.font = '600 12px ' + FONTE_CORPO;
-        textoEspacado(ctx, "COORDENAÇÃO PEDAGÓGICA · CPF 86.082.026/543", W/2, 662, 2);
+        textoEspacado(ctx, "COORDENAÇÃO PEDAGÓGICA · FAROL", W/2, 662, 2);
 
         // Legal support
         ctx.fillStyle = "#8093ad";
