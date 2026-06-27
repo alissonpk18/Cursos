@@ -1163,6 +1163,9 @@
       var c = porId(cursoId); if (!c) return [];
       var out = [];
       c.modulos.forEach(function (m) {
+        // O próprio módulo de certificado só é concluído ao emitir — não pode
+        // ser pré-requisito de si mesmo (senão o certificado nunca libera).
+        if (m.tipo === "certificado") return;
         if (!estaModuloConcluido(cursoId, m.id))
           out.push({ rotulo: "Módulo " + m.num + " · " + m.titulo, href: m.arquivo, criterio: m.criterio });
       });
@@ -1172,7 +1175,9 @@
       var out = [];
       CURSOS.forEach(function (c) {
         c.modulos.forEach(function (m) {
-          if (c.id === "curso6" && m.id === "c6m6") return; // o próprio certificado
+          // Módulos de certificado (ex.: c5m4, c6m6) só concluem ao emitir,
+          // então não entram como pré-requisito do certificado do programa.
+          if (m.tipo === "certificado") return;
           if (!estaModuloConcluido(c.id, m.id))
             out.push({ rotulo: c.titulo + " → " + m.titulo, href: "../" + pasta(c) + m.arquivo });
         });

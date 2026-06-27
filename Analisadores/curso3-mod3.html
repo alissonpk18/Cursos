@@ -63,8 +63,8 @@
 
     function iniciar3D(THREE) {
       var renderer;
-      try { renderer = new THREE.Gráficos 3DRenderer({ antialias: true, alpha: true }); }
-      catch (e) { fallback("Sem Gráficos 3D disponível."); return; }
+      try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); }
+      catch (e) { fallback("Sem WebGL disponível."); return; }
       var w = palco.clientWidth, h = palco.clientHeight;
       renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(w, h);
       aviso.classList.add("esconder"); palco.appendChild(renderer.domElement);
