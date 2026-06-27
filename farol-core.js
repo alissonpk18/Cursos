@@ -327,10 +327,18 @@
         p.pontuacoes[moduloId] = pontuacao;
       }
     });
-    // Revela o botão do próximo módulo que estava oculto até a conclusão
+    // Ativa o botão do próximo módulo que estava bloqueado
     var pendentes = document.querySelectorAll("[data-proximo-modulo]");
     for (var pi = 0; pi < pendentes.length; pi++) {
-      pendentes[pi].style.display = "";
+      var elPend = pendentes[pi];
+      if (elPend.dataset.hrefOriginal) {
+        elPend.setAttribute("href", elPend.dataset.hrefOriginal);
+      }
+      elPend.classList.remove("botao-fantasma");
+      elPend.removeAttribute("aria-disabled");
+      elPend.removeAttribute("title");
+      elPend.style.cursor = "";
+      elPend.style.pointerEvents = "";
     }
   }
 
@@ -570,15 +578,32 @@
          }
       }
 
-      // Oculta o botão "próximo módulo" até o módulo atual ser concluído
+      // Botão inteligente do próximo módulo: reflete o estado real do aluno
       var modAtualId = "c" + cursoId.replace("curso", "") + "m" + modNum;
-      if (!estaModuloConcluido(cursoId, modAtualId)) {
-        var navMod = document.querySelector("nav.flex");
-        if (navMod) {
-          var linksProximos = navMod.querySelectorAll("a.botao:not(.botao-fantasma)");
-          for (var li = 0; li < linksProximos.length; li++) {
-            linksProximos[li].dataset.proximoModulo = "1";
-            linksProximos[li].style.display = "none";
+      var modAtualConcluido = estaModuloConcluido(cursoId, modAtualId);
+      var cursoDados = CURSOS.filter(function (c) { return c.id === cursoId; })[0];
+      var navMod = document.querySelector("nav.flex");
+      if (navMod && cursoDados) {
+        var nextMod = null;
+        for (var ni = 0; ni < cursoDados.modulos.length; ni++) {
+          if (cursoDados.modulos[ni].num === modNum + 1) { nextMod = cursoDados.modulos[ni]; break; }
+        }
+        var linksProximos = navMod.querySelectorAll("a.botao:not(.botao-fantasma)");
+        for (var li = 0; li < linksProximos.length; li++) {
+          var linkEl = linksProximos[li];
+          linkEl.dataset.proximoModulo = "1";
+          linkEl.dataset.hrefOriginal = linkEl.getAttribute("href") || "";
+          if (!modAtualConcluido) {
+            // Módulo não concluído: botão visível mas bloqueado
+            linkEl.classList.add("botao-fantasma");
+            linkEl.removeAttribute("href");
+            linkEl.setAttribute("aria-disabled", "true");
+            linkEl.title = "Conclua este módulo para avançar";
+            linkEl.style.cursor = "not-allowed";
+            linkEl.style.pointerEvents = "none";
+          } else if (nextMod && estaModuloConcluido(cursoId, nextMod.id)) {
+            // Próximo módulo já foi visitado/concluído: indica revisão
+            linkEl.textContent = "Revisar Módulo " + nextMod.num + " →";
           }
         }
       }
