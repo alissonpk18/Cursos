@@ -327,6 +327,7 @@
         p.pontuacoes[moduloId] = pontuacao;
       }
     });
+    if (window.FarolVersao) FarolVersao._registrar(moduloId);
     // Ativa o botão do próximo módulo que estava bloqueado
     var pendentes = document.querySelectorAll("[data-proximo-modulo]");
     for (var pi = 0; pi < pendentes.length; pi++) {
